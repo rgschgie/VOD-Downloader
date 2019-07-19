@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace VOD_Downloader
 {
-    class VideoQualityFormat
+    public class VideoQualityFormat
     {
         [JsonProperty(PropertyName = "formats")]
         public List<VideoQuality> VideoQualityList { get; set; }
          
     }
 
-    class VideoQuality
+    public class VideoQuality
     {
         [JsonProperty(PropertyName = "quality")]
         public int quality { get; set; }

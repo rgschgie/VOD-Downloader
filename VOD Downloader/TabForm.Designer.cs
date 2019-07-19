@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.streamerPickControl = new VOD_Downloader.StreamerPickControl();
             this.loadingDoneLabel = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.SelectColumn = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -55,6 +58,7 @@
             this.userIdLabel = new System.Windows.Forms.Label();
             this.userPictureBox = new System.Windows.Forms.PictureBox();
             this.downloadQueue1 = new VOD_Downloader.DownloadQueue();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -67,18 +71,42 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(201, 49);
+            this.tabControl1.Location = new System.Drawing.Point(201, 50);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(961, 647);
             this.tabControl1.TabIndex = 0;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(953, 621);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(953, 621);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "tabPage5";
+            // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.streamerPickControl);
             this.tabPage1.Controls.Add(this.loadingDoneLabel);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -87,6 +115,13 @@
             this.tabPage1.Size = new System.Drawing.Size(953, 621);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Followed Streamers";
+            // 
+            // streamerPickControl
+            // 
+            this.streamerPickControl.Location = new System.Drawing.Point(18, 3);
+            this.streamerPickControl.Name = "streamerPickControl";
+            this.streamerPickControl.Size = new System.Drawing.Size(849, 498);
+            this.streamerPickControl.TabIndex = 2;
             // 
             // loadingDoneLabel
             // 
@@ -106,13 +141,12 @@
             this.SelectColumn,
             this.StreamerPicture,
             this.StreamerName});
-            this.dataGridView1.Location = new System.Drawing.Point(62, 18);
+            this.dataGridView1.Location = new System.Drawing.Point(629, 507);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 543);
+            this.dataGridView1.Size = new System.Drawing.Size(297, 108);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // SelectColumn
             // 
@@ -148,7 +182,6 @@
             this.tabPage2.Size = new System.Drawing.Size(953, 621);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Past Streams";
-
             // 
             // dataGridView2
             // 
@@ -163,7 +196,6 @@
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.Size = new System.Drawing.Size(757, 492);
             this.dataGridView2.TabIndex = 0;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // DownloadButton
             // 
@@ -252,7 +284,6 @@
             this.DownloadStreamDownloadButton.TabIndex = 6;
             this.DownloadStreamDownloadButton.Text = "Download";
             this.DownloadStreamDownloadButton.UseVisualStyleBackColor = true;
-            this.DownloadStreamDownloadButton.Click += new System.EventHandler(this.DownloadStreamDownloadButton_Click);
             // 
             // FileNameTextBox
             // 
@@ -330,6 +361,16 @@
             this.downloadQueue1.Size = new System.Drawing.Size(668, 156);
             this.downloadQueue1.TabIndex = 3;
             // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(953, 621);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "tabPage6";
+            // 
             // TabForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -385,5 +426,9 @@
         private System.Windows.Forms.PictureBox selectedVODPictureBox;
         private System.Windows.Forms.PictureBox userPictureBox;
         private DownloadQueue downloadQueue1;
+        private StreamerPickControl streamerPickControl;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabPage6;
     }
 }

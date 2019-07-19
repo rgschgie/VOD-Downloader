@@ -9,22 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using NYoutubeDL;
+using Newtonsoft.Json;
 
 namespace VOD_Downloader
 {
-    //TODO implement download queue
-    public partial class DownloadQueue : UserControl
+    public partial class DownloadControl : UserControl
     {
 
-       /*
-        Will implement download queue later*/
 
-
-        /*
-        private VideoQuality _downloadQuality;
-
-        private Queue<Tuple<VideoQuality, VODObject>> _downloadQueue = new Queue<Tuple<VideoQuality, VODObject>>();
-        private string _videoName = "";
         VODObject _selectedVOD;
         VideoQualityFormat _videoQualityFormats;
 
@@ -32,16 +24,21 @@ namespace VOD_Downloader
 
 
 
-        public DownloadQueue()
+        public DownloadControl()
         {
             InitializeComponent();
         }
 
 
 
-        private void DownloadQueue_Load(object sender, EventArgs e)
+        public void SetUpDownload(VODObject selectedVOD)
         {
+            _selectedVOD = selectedVOD;
 
+          
+                populateComboBoxWithVideoFormats();
+            
+            
         }
 
 
@@ -49,15 +46,82 @@ namespace VOD_Downloader
 
 
 
+        private  void populateComboBoxWithVideoFormats()
+        {
+           
+                var updateGUIThread = new Progress<VideoQualityFormat>((value) =>
+            {
+
+                value.VideoQualityList.ForEach(x => comboBox1.Items.Add(x.format));
+                selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
+                TitleLabel.Text = _selectedVOD.title;
+                CreatedLabel.Text = _selectedVOD.created_at.ToShortTimeString();
+                SizeLabel.Text = _selectedVOD.duration;
+                FileNameTextBox.Text = String.Format("{0}", _selectedVOD.title);
+            });
+
+                var updateMainForm = updateGUIThread as IProgress<VideoQualityFormat>;
+
+
+                if (_selectedVOD != null)
+                {
+                Task.Run(() => {
+                    _videoQualityFormats = getVideoFormats(_selectedVOD.url).Result;
+                    updateMainForm.Report(_videoQualityFormats);
+                });
+                    
+                    
+                    
+                }
+        }
+
+        private async Task<VideoQualityFormat> getVideoFormats(string url)
+        {
+            VideoQualityFormat data = null;
+
+            var updateGUIThread = new Progress<Boolean>((value) =>
+            {
+
+                if (value)
+                {
+                    selectedVODPictureBox.Image = Properties.Resources.loadingIcon;
+                }
+                else
+                {
+                    selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
+                }
+
+            });
+
+            var updateMainForm = updateGUIThread as IProgress<Boolean>;
+
+                string x = "";
+
+                var youtubeDL1 = new YoutubeDL();
+                youtubeDL1.StandardOutputEvent += (sender, output) => {
+                    Console.WriteLine(output);
+                    x = output;
+                };
+                youtubeDL1.StandardErrorEvent += (sender, errorOutput) => Console.WriteLine(errorOutput);
+                youtubeDL1.VideoUrl = _selectedVOD.url;
+                youtubeDL1.Options.VerbositySimulationOptions.DumpJson = true;
+                updateMainForm.Report(true);
+            //Only can do one json even at a time - downloads the json for video quality
+                await youtubeDL1.DownloadAsync();
+
+            
+                data = JsonConvert.DeserializeObject<VideoQualityFormat>(x);
+                updateMainForm.Report(false);
+        
+            return data;
+        }
 
 
 
 
 
 
-
-
-        private async void DownloadVOD()
+        private void DownloadVOD()
         {
             var updateProgressBar = new Progress<int>(value => { progressBar1.Value = (value > 100) ? 100 : value; });
 
@@ -65,13 +129,13 @@ namespace VOD_Downloader
             {
                 if (isPreparingToDownload)
                 {
-                    //pleaseWaitLabel.Visible = true;
-                    //PreparingToLoadLabel.Visible = true;
+                    pleaseWaitLabel.Visible = true;
+                    PreparingToLoadLabel.Visible = true;
                 }
                 else
                 {
-                    //pleaseWaitLabel.Visible = false;
-                    //PreparingToLoadLabel.Visible = false;
+                    pleaseWaitLabel.Visible = false;
+                    PreparingToLoadLabel.Visible = false;
                 }
             });
 
@@ -81,22 +145,26 @@ namespace VOD_Downloader
 
             if (_selectedVOD != null)
             {
-                if (_downloadQuality != null)
+                if (comboBox1.Text != string.Empty)
                 {
+
+                    VideoQuality downloadQuality = _videoQualityFormats.VideoQualityList.Find(x => x.format == comboBox1.Text);
+
+
 
                     NYoutubeDL.Helpers.FileSizeRate help = new NYoutubeDL.Helpers.FileSizeRate(1.0, NYoutubeDL.Helpers.Enums.ByteUnit.M);
 
                     var youtubeDL = new YoutubeDL();
-                    youtubeDL.VideoUrl = _downloadQuality.url;
+                    youtubeDL.VideoUrl = downloadQuality.url;
                     // youtubeDL.Options.DownloadOptions.LimitRate = help;
 
-                    string fileType = _downloadQuality.extension;
+                    string fileType = downloadQuality.extension;
                     youtubeDL.Options.PostProcessingOptions.FfmpegLocation = "C:\\ffmpeg.exe";
-                    youtubeDL.Options.FilesystemOptions.Output = String.Format(@"C:\Users\rgsch\Downloads\{0}_{1}.{2}", _selectedVOD.title, _downloadQuality.format, fileType);
+                    youtubeDL.Options.FilesystemOptions.Output = String.Format(@"C:\Users\rgsch\Downloads\{0}_{1}.{2}", _selectedVOD.title, downloadQuality.format, fileType);
 
 
 
-                    Console.WriteLine(_downloadQuality.size);
+                    Console.WriteLine(downloadQuality.size);
 
 
                     int totalSeconds = 0;
@@ -105,7 +173,7 @@ namespace VOD_Downloader
 
                     try
                     {
-                        await Task.Run(() =>
+                        Task.Run(() =>
                         {
 
                             youtubeDL.StandardOutputEvent += (sender, output) =>
@@ -148,10 +216,12 @@ namespace VOD_Downloader
 
                             Thread.Sleep(1000);
                             updateGUIThreadDownload?.Report(100);
+
+                            MessageBox.Show("Done");
                         });
 
 
-                        MessageBox.Show("Done");
+                        
                     }
                     catch (Exception e)
                     {
@@ -161,6 +231,9 @@ namespace VOD_Downloader
             }
 
         }
+
+
+
 
 
 
@@ -228,68 +301,11 @@ namespace VOD_Downloader
 
         }
 
-
-
-        private async void startDownloadVOD()
+        private void DownloadStreamDownloadButton_Click_1(object sender, EventArgs e)
         {
-            while(_downloadQuality != null && _selectedVOD != null)
-            {
-               await Task.Run(() => {
-                    DownloadVOD();
-                });
-                
-                if()
-                {
-
-                }
-
-
-            }
+            VideoQuality videoQuality = _videoQualityFormats.VideoQualityList.Find(x => x.format == comboBox1.Text);
+            //downloadQueue1.addToDownloadQueue(videoQuality, _selectedVOD);
+            DownloadVOD();
         }
-
-
-
-
-
-        private async Task updateGUI()
-        {
-            var updateCountNum = new Progress<Tuple<int,string,double>>(value => {
-                numItemsInQueueLabel.Text = value.Item1.ToString();
-                listView1.Items.Add(value.Item2);
-            });
-            var updateGUI = updateCountNum as IProgress<Tuple<int, string, double>>;
-
-
-            await Task.Run(() =>
-            {
-                //Thread.Sleep(1000);
-                updateGUI.Report(new Tuple<int,string,double>(_downloadQueue.Count, _videoName,2.0));
-            });
-        }
-
-
-
-
-        public async void addToDownloadQueue(VideoQuality downloadQuality, VODObject selectedVOD)
-        {
-
-
-            _selectedVOD = selectedVOD;
-            _downloadQuality = downloadQuality;
-            _downloadQueue.Enqueue(new Tuple<VideoQuality, VODObject> (downloadQuality,selectedVOD ));
-            _videoName = _downloadQueue.Peek().Item2.title;
-            await updateGUI();
-
-
-            if(_downloadQueue.Count == 1)
-            {
-                await startDownloadVOD();
-                
-            }
-            
-        }*/
-
-
-  
     }
 }

@@ -30,14 +30,15 @@ namespace VOD_Downloader
         private void Form1_Load(object sender, EventArgs e)
         {
             //used
-            datagridviewLayout();
+            Task.Run(() => {
+                datagridviewLayout();
+            });
+            
+            
         }
 
         private async void datagridviewLayout()
         {
-
-
-
 
             var loadingPicture = new PictureBox()
             {
@@ -82,7 +83,7 @@ namespace VOD_Downloader
             int twitchUserID;
 
             twitchUserID = await getUserID(twitchUserName);
-            returnValue = await APICalls.GetFollowedStreamers(twitchUserID);
+            returnValue = APICalls.GetFollowedStreamers(twitchUserID);
 
             return returnValue;
         }
@@ -94,7 +95,7 @@ namespace VOD_Downloader
         /// <returns></returns>
         private async Task<int> getUserID(string username)
         {
-            UserDataInformation userDataInformationObject =  await APICalls.GetStreamerInformation(username);
+            UserDataInformation userDataInformationObject =  APICalls.GetStreamerInformation(username);
             return userDataInformationObject.User[0].id;
         }
 
@@ -111,7 +112,7 @@ namespace VOD_Downloader
             //Cleaning up last "&login="
             streamerLoginNames = streamerLoginNames.Substring(0, streamerLoginNames.Length - 7);
 
-            user = await APICalls.GetStreamerInformation(streamerLoginNames);
+            user = APICalls.GetStreamerInformation(streamerLoginNames);
 
             return user;
         }

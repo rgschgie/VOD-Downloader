@@ -10,14 +10,14 @@ namespace VOD_Downloader
 {
     public static class APICalls
     {
-        public static Task<VODMasterObject> GetPreviousStreams(int streamerID, string previousStreamType = "highlight")
+        public static VODMasterObject GetPreviousStreams(int streamerID, string previousStreamType = "highlight")
         {
             return APICall<VODMasterObject, int>(BaseURL.PastStreamsURL, "user_id=", streamerID, "&type=", previousStreamType);
         }
 
-        public static async Task<UserFollowData> GetFollowedStreamers(int streamerID)
+        public static UserFollowData GetFollowedStreamers(int streamerID)
         {
-            return await APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL, "from_id=", streamerID);
+            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL, "from_id=", streamerID);
         }
 
         /// <summary>
@@ -25,16 +25,13 @@ namespace VOD_Downloader
         /// </summary>
         /// <param name="username">Streamer username, can be chained with multiple usernames using "&login=" </param>
         /// <returns>UserDataInformation object with a list of UserInformation</returns>
-        public static async Task<UserDataInformation> GetStreamerInformation(string username)
+        public static  UserDataInformation GetStreamerInformation(string username)
         {
-            return await APICall<UserDataInformation, string>(BaseURL.UserAccountURL, "login=", username);
+            return APICall<UserDataInformation, string>(BaseURL.UserAccountURL, "login=", username);
         }
 
-        private static Task<T> APICall<T, U>(BaseURL baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
+        private static T APICall<T, U>(BaseURL baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
         {
-            return Task.Run(async() =>
-            {
-
             
             T returnInformation = default(T);
             try
@@ -45,7 +42,7 @@ namespace VOD_Downloader
                     using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo)))
                     {
                         request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
-                        var response = await httpClient.SendAsync(request);
+                        HttpResponseMessage response = httpClient.SendAsync(request).Result;
                         T data = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
                         returnInformation = data;
                     }
@@ -55,10 +52,10 @@ namespace VOD_Downloader
             {
                 Console.WriteLine(e.ToString());
             }
-            
+
             return returnInformation;
 
-            });
+        
         }
 
 

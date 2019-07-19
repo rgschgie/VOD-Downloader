@@ -89,7 +89,6 @@
             this.Controls.Add(this.itemsInQueueLabel);
             this.Name = "DownloadQueue";
             this.Size = new System.Drawing.Size(686, 156);
-            this.Load += new System.EventHandler(this.DownloadQueue_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

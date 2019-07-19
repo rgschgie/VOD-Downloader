@@ -73,6 +73,12 @@
   <ItemGroup>
     <Compile Include="APICalls.cs" />
     <Compile Include="BaseURL.cs" />
+    <Compile Include="DownloadControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DownloadControl.Designer.cs">
+      <DependentUpon>DownloadControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DownloadQueue.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,6 +110,18 @@
     <Compile Include="StreamerForm.Designer.cs">
       <DependentUpon>StreamerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StreamerPickControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StreamerPickControl.Designer.cs">
+      <DependentUpon>StreamerPickControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StreamPickControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StreamPickControl.Designer.cs">
+      <DependentUpon>StreamPickControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +136,9 @@
     <Compile Include="VideoQuality.cs" />
     <Compile Include="VODMasterObject.cs" />
     <Compile Include="VODObject.cs" />
+    <EmbeddedResource Include="DownloadControl.resx">
+      <DependentUpon>DownloadControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DownloadQueue.resx">
       <DependentUpon>DownloadQueue.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +155,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StreamerForm.resx">
       <DependentUpon>StreamerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StreamerPickControl.resx">
+      <DependentUpon>StreamerPickControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StreamPickControl.resx">
+      <DependentUpon>StreamPickControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabForm.resx">
       <DependentUpon>TabForm.cs</DependentUpon>

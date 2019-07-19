@@ -37,15 +37,15 @@ namespace VOD_Downloader
 
 
 
-        private async Task<VODMasterObject> getPastStreams()
+        private VODMasterObject getPastStreams()
         {
-            return await APICalls.GetPreviousStreams(StreamerInformation.id,"archive");
+            return APICalls.GetPreviousStreams(StreamerInformation.id,"archive");
         }
 
 
         private async Task FillDataGridView()
         {
-            var VODMaster = await getPastStreams();
+            var VODMaster = getPastStreams();
             vodList = VODMaster.data;
 
             dataGridView1.RowTemplate.Height = 50;
