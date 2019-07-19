@@ -63,6 +63,11 @@ namespace VOD_Downloader
                 var updateMainForm = updateGUIThread as IProgress<VideoQualityFormat>;
 
 
+
+            
+
+
+
                 if (_selectedVOD != null)
                 {
                 Task.Run(() => {
