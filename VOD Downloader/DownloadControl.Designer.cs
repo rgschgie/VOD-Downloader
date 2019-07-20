@@ -149,6 +149,7 @@
             this.Controls.Add(this.selectedVODPictureBox);
             this.Name = "DownloadControl";
             this.Size = new System.Drawing.Size(776, 626);
+            this.Load += new System.EventHandler(this.DownloadControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

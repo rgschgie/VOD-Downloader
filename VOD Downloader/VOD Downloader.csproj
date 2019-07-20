@@ -85,16 +85,16 @@
     <Compile Include="DownloadQueue.Designer.cs">
       <DependentUpon>DownloadQueue.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadStreamForm.cs">
+    <Compile Include="Obsolete\DownloadStreamForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadStreamForm.Designer.cs">
+    <Compile Include="Obsolete\DownloadStreamForm.Designer.cs">
       <DependentUpon>DownloadStreamForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="Obsolete\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="Obsolete\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -104,10 +104,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StreamerForm.cs">
+    <Compile Include="Obsolete\StreamerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StreamerForm.Designer.cs">
+    <Compile Include="Obsolete\StreamerForm.Designer.cs">
       <DependentUpon>StreamerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamerPickControl.cs">
@@ -128,13 +128,13 @@
     <Compile Include="TabForm.Designer.cs">
       <DependentUpon>TabForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserDataInformation.cs" />
+    <Compile Include="Obsolete\UserDataInformation.cs" />
     <Compile Include="UserFollow.cs" />
-    <Compile Include="UserFollowData.cs" />
-    <Compile Include="UserFollowPagination.cs" />
+    <Compile Include="Obsolete\UserFollowData.cs" />
+    <Compile Include="Obsolete\UserFollowPagination.cs" />
     <Compile Include="UserInformation.cs" />
     <Compile Include="VideoQuality.cs" />
-    <Compile Include="VODMasterObject.cs" />
+    <Compile Include="Obsolete\VODMasterObject.cs" />
     <Compile Include="VODObject.cs" />
     <EmbeddedResource Include="DownloadControl.resx">
       <DependentUpon>DownloadControl.cs</DependentUpon>
@@ -142,10 +142,10 @@
     <EmbeddedResource Include="DownloadQueue.resx">
       <DependentUpon>DownloadQueue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadStreamForm.resx">
+    <EmbeddedResource Include="Obsolete\DownloadStreamForm.resx">
       <DependentUpon>DownloadStreamForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="Obsolete\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -153,7 +153,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="StreamerForm.resx">
+    <EmbeddedResource Include="Obsolete\StreamerForm.resx">
       <DependentUpon>StreamerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamerPickControl.resx">
@@ -197,5 +197,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

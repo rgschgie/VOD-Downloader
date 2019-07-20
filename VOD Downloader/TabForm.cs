@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace VOD_Downloader
 {
     public partial class TabForm : Form
     {
-        //changes to dev
+        
         private int _userID;
         private string _userPictureURL;
 
@@ -91,6 +92,14 @@ namespace VOD_Downloader
             uc.SetUpDownload(selectedVOD);
         }
 
-
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(BaseURL.PastStreamURL.GetType()
+            .GetMember(BaseURL.PastStreamURL.ToString())
+            .FirstOrDefault()
+            ?.GetCustomAttribute<DescriptionAttribute>()
+            ?.Description
+        ?? BaseURL.PastStreamURL.ToString());
+        }
     }
 }

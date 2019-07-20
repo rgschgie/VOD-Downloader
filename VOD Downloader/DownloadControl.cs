@@ -34,19 +34,10 @@ namespace VOD_Downloader
         public void SetUpDownload(VODObject selectedVOD)
         {
             _selectedVOD = selectedVOD;
-
-          
-                populateComboBoxWithVideoFormats();
-            
-            
+            populateComboBoxWithVideoFormats();
         }
 
-
-
-
-
-
-        private  void populateComboBoxWithVideoFormats()
+        private void populateComboBoxWithVideoFormats()
         {
            
                 var updateGUIThread = new Progress<VideoQualityFormat>((value) =>
@@ -62,21 +53,12 @@ namespace VOD_Downloader
 
                 var updateMainForm = updateGUIThread as IProgress<VideoQualityFormat>;
 
-
-
-            
-
-
-
                 if (_selectedVOD != null)
                 {
-                Task.Run(() => {
-                    _videoQualityFormats = getVideoFormats(_selectedVOD.url).Result;
-                    updateMainForm.Report(_videoQualityFormats);
-                });
-                    
-                    
-                    
+                    Task.Run(() => {
+                        _videoQualityFormats = getVideoFormats(_selectedVOD.url).Result;
+                        updateMainForm.Report(_videoQualityFormats);
+                    });                    
                 }
         }
 
@@ -311,6 +293,11 @@ namespace VOD_Downloader
             VideoQuality videoQuality = _videoQualityFormats.VideoQualityList.Find(x => x.format == comboBox1.Text);
             //downloadQueue1.addToDownloadQueue(videoQuality, _selectedVOD);
             DownloadVOD();
+        }
+
+        private void DownloadControl_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

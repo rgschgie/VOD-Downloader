@@ -12,12 +12,12 @@ namespace VOD_Downloader
     {
         public static VODMasterObject GetPreviousStreams(int streamerID, string previousStreamType = "highlight")
         {
-            return APICall<VODMasterObject, int>(BaseURL.PastStreamsURL, "user_id=", streamerID, "&type=", previousStreamType);
+            return APICall<VODMasterObject, int>(BaseURL.PastStreamURL.ToDescriptionString()/*BaseURL.PastStreamsURL*/, "user_id=", streamerID, "&type=", previousStreamType);
         }
 
         public static UserFollowData GetFollowedStreamers(int streamerID)
         {
-            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL, "from_id=", streamerID);
+            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL.ToDescriptionString()/*BaseURL.FollowedStreamersURL*/, "from_id=", streamerID);
         }
 
         /// <summary>
@@ -27,10 +27,10 @@ namespace VOD_Downloader
         /// <returns>UserDataInformation object with a list of UserInformation</returns>
         public static  UserDataInformation GetStreamerInformation(string username)
         {
-            return APICall<UserDataInformation, string>(BaseURL.UserAccountURL, "login=", username);
+            return APICall<UserDataInformation, string>(BaseURL.UserAccountURL.ToDescriptionString()/*BaseURL.UserAccountURL*/, "login=", username);
         }
 
-        private static T APICall<T, U>(BaseURL baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
+        private static T APICall<T, U>(string baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
         {
             
             T returnInformation = default(T);
@@ -38,8 +38,8 @@ namespace VOD_Downloader
             {
                 using (var httpClient = new HttpClient())
                 {
-                    Console.WriteLine(string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo));
-                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo)))
+                    Console.WriteLine(string.Format("{0}{1}{2}{3}{4}", baseURL, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo));
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}", baseURL, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo)))
                     {
                         request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
                         HttpResponseMessage response = httpClient.SendAsync(request).Result;
@@ -57,6 +57,9 @@ namespace VOD_Downloader
 
         
         }
+
+
+
 
 
         /*  private static async Task<T> APICall<T>(BaseURL baseURL, string paramaterQueryNameOne, string paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")

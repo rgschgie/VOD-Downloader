@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace VOD_Downloader
 {
-   public class UserInformation
+    public class UserDataInformation
+    {
+        [JsonProperty(PropertyName = "data")]
+        public List<UserInformation> User { get; set; }
+    }
+    public class UserInformation
     {
         [JsonProperty(PropertyName = "id")]
         public int id { get; set; }

@@ -79,8 +79,8 @@ namespace VOD_Downloader
             });
 
             var updateGUIThread = addToDataGridView as IProgress<Tuple<string, Bitmap, string>>;
-            Task.Run(() =>
-            {
+            //Task.Run(() =>
+           // {
                 dataGridView1.RowTemplate.MinimumHeight = 90;
                 followedStreamersList.User.ForEach(streamer =>
                 {
@@ -91,7 +91,7 @@ namespace VOD_Downloader
                     Bitmap bitmap2 = new Bitmap(responseStream);
                     updateGUIThread.Report(new Tuple<string, Bitmap, string>("Select", bitmap2, streamer.login));
                 });
-            });
+            //});
         }
 
 
@@ -106,6 +106,7 @@ namespace VOD_Downloader
                 { SelectedChoice = _selectedStreamer });
             }
         }
+
 
     }
 }

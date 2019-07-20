@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VOD_Downloader
 {
-    public class VODMasterObject
+    public class VODMasterObjectObsolete
     {
         public List<VODObject> data { get; set; }
 
