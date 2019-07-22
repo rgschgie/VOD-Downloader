@@ -10,14 +10,25 @@ namespace VOD_Downloader
 {
     public static class APICalls
     {
-        public static VODMasterObject GetPreviousStreams(int streamerID, string previousStreamType = "highlight")
+        public static VODMasterObject GetStreams(int streamerID, string previousStreamType = "highlight")
         {
-            return APICall<VODMasterObject, int>(BaseURL.PastStreamURL.ToDescriptionString()/*BaseURL.PastStreamsURL*/, "user_id=", streamerID, "&type=", previousStreamType);
+            return APICall<VODMasterObject, int>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID, "&type=", previousStreamType);
+        }
+
+        public static VODMasterObject GetStreams(int streamerID, string beforeOrAfter, string pagination, string previousStreamType = "highlight")
+        {
+            return APICall<VODMasterObject, int>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID, "&type=", previousStreamType, beforeOrAfter, pagination);
+        }
+
+
+        public static UserFollowData GetFollowedStreamersNext(int streamerID, string pagination)
+        {
+            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL.ToDescriptionString(), "from_id=", streamerID, "&after=",pagination);
         }
 
         public static UserFollowData GetFollowedStreamers(int streamerID)
         {
-            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL.ToDescriptionString()/*BaseURL.FollowedStreamersURL*/, "from_id=", streamerID);
+            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL.ToDescriptionString(), "from_id=", streamerID);
         }
 
         /// <summary>
@@ -27,10 +38,10 @@ namespace VOD_Downloader
         /// <returns>UserDataInformation object with a list of UserInformation</returns>
         public static  UserDataInformation GetStreamerInformation(string username)
         {
-            return APICall<UserDataInformation, string>(BaseURL.UserAccountURL.ToDescriptionString()/*BaseURL.UserAccountURL*/, "login=", username);
+            return APICall<UserDataInformation, string>(BaseURL.UserAccountURL.ToDescriptionString(), "login=", username);
         }
 
-        private static T APICall<T, U>(string baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
+        private static T APICall<T, U>(string baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "", string paramaterQueryNameThree = "", string parameterValueThree = "")
         {
             
             T returnInformation = default(T);
@@ -39,7 +50,7 @@ namespace VOD_Downloader
                 using (var httpClient = new HttpClient())
                 {
                     Console.WriteLine(string.Format("{0}{1}{2}{3}{4}", baseURL, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo));
-                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}", baseURL, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo)))
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}{5}{6}", baseURL, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo,paramaterQueryNameThree, parameterValueThree )))
                     {
                         request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
                         HttpResponseMessage response = httpClient.SendAsync(request).Result;

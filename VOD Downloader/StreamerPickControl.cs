@@ -8,23 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Net.Http;
+using System.Net;
 
 namespace VOD_Downloader
 {
     public partial class StreamerPickControl : UserControl
     {
-        //public UserInformation SelectedStreamer;
-
 
         public class SelectedItemEventArgs : EventArgs
-            {
-                public UserInformation SelectedChoice { get; set; }
-            }
+        {
+            public UserInformation SelectedChoice { get; set; }
+        }
 
-        public event EventHandler <SelectedItemEventArgs> ItemHasBeenSelected;
-
-
-
+        public event EventHandler<SelectedItemEventArgs> ItemHasBeenSelected;
 
 
         [Description("Selected Streamer information"), Category("Data")]
@@ -34,16 +31,11 @@ namespace VOD_Downloader
         }
 
 
-
-
-
-
-
         private int _userID;
         private List<UserInformation> _followedStreamerInformation;
         private UserInformation _selectedStreamer;
-
-        public event EventHandler PropertyChanged;
+        Stack<string> _paginationStack = new Stack<string>();
+        
 
         public StreamerPickControl()
         {
@@ -54,21 +46,23 @@ namespace VOD_Downloader
         public void setupStreamerPickControl(int userID)
         {
             _userID = userID;
-            loadTabFollowedStreamers();
+
+            loadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID));
         }
 
 
-        private void loadTabFollowedStreamers()
+        private void loadTabFollowedStreamers(UserFollowData followedStreamerObject)
         {
 
             //get followed streamers object
-            UserFollowData followedStreamerObject = APICalls.GetFollowedStreamers(_userID);
+
+            _paginationStack.Push(followedStreamerObject.pagination.cursor);
 
             string streamerLoginNames = "";
             //Create first 20 followed URL Query
-            followedStreamerObject.Data.ForEach(streamerFollowed => streamerLoginNames = streamerLoginNames + streamerFollowed.to_name + "&login=");
+            followedStreamerObject.Data.ForEach(streamerFollowed => streamerLoginNames = streamerLoginNames + streamerFollowed.to_id + "&id=");
             //Cleaning up last "&login="
-            streamerLoginNames = streamerLoginNames.Substring(0, streamerLoginNames.Length - 7);
+            streamerLoginNames = streamerLoginNames.Substring(0, streamerLoginNames.Length - 3);
 
             UserDataInformation followedStreamersList = APICalls.GetStreamerInformation(streamerLoginNames);
             _followedStreamerInformation = followedStreamersList.User;
@@ -79,22 +73,24 @@ namespace VOD_Downloader
             });
 
             var updateGUIThread = addToDataGridView as IProgress<Tuple<string, Bitmap, string>>;
-            //Task.Run(() =>
-           // {
-                dataGridView1.RowTemplate.MinimumHeight = 90;
-                followedStreamersList.User.ForEach(streamer =>
-                {
-                    //Thread.Sleep(1000);
-                    System.Net.WebRequest request = System.Net.WebRequest.Create(streamer.profile_image_url);
-                    System.Net.WebResponse response = request.GetResponse();
-                    System.IO.Stream responseStream = response.GetResponseStream();
-                    Bitmap bitmap2 = new Bitmap(responseStream);
-                    updateGUIThread.Report(new Tuple<string, Bitmap, string>("Select", bitmap2, streamer.login));
-                });
-            //});
+
+            dataGridView1.RowTemplate.MinimumHeight = 90;
+
+            Task.Run(() =>
+                        {
+                            followedStreamersList.User.ForEach(streamer =>
+                            {
+
+                                WebRequest request = System.Net.WebRequest.Create(streamer.profile_image_url);
+                                WebResponse response = request.GetResponse();
+                                System.IO.Stream responseStream = response.GetResponseStream();
+                                Bitmap bitmap2 = new Bitmap(responseStream);
+
+                                updateGUIThread.Report(new Tuple<string, Bitmap, string>("Select", bitmap2, streamer.login));
+                            });
+                        });
+            
         }
-
-
 
         private void DataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -107,6 +103,41 @@ namespace VOD_Downloader
             }
         }
 
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            ClearDataGridView();
+            string pagination = _paginationStack.Peek();
+            loadTabFollowedStreamers(APICalls.GetFollowedStreamersNext(_userID, pagination));
+            PreviousButton.Visible = true;
+        }
 
+
+         
+
+        public void ClearDataGridView()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+        }
+
+        private void PreviousButton_Click(object sender, EventArgs e)
+        {
+
+
+            ClearDataGridView();
+            _paginationStack.Pop();
+            _paginationStack.Pop();
+            
+            if(_paginationStack.Count == 0)
+            {
+                loadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID));
+                PreviousButton.Visible = false;
+            }
+            else
+            {
+                string pagination = _paginationStack.Peek();
+                loadTabFollowedStreamers(APICalls.GetFollowedStreamersNext(_userID, pagination));
+            }
+        }
     }
 }
