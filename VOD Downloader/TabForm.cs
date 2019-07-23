@@ -48,6 +48,8 @@ namespace VOD_Downloader
 
         private void GetSelectedStreamer()
         {
+            
+            
             var uc = new StreamerPickControl();
             uc.ItemHasBeenSelected += uc_StreamerHasBeenSelected;
 
@@ -57,6 +59,7 @@ namespace VOD_Downloader
 
         private void uc_StreamerHasBeenSelected(object sender, StreamerPickControl.SelectedItemEventArgs e)
         {
+            Console.WriteLine(!this.Controls.ContainsKey("StreamerPickControl"));
             GetSelectedStream(e.SelectedChoice);
             Console.WriteLine(e.SelectedChoice.login);
             tabControl1.SelectedIndex = 1;

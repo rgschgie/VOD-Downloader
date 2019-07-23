@@ -184,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="loadingIcon.gif" />
+    <None Include="Resources\replacementIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

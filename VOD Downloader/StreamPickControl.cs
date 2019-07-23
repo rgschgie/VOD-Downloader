@@ -42,6 +42,7 @@ namespace VOD_Downloader
         public void setupStreamPickControl(UserInformation selectedStreamer)
         {
             _selectedStreamer = selectedStreamer;
+            ClearDataGridView();
             FillPastStreamsDataGridView(GetPastStreams());
 
         }
@@ -65,11 +66,20 @@ namespace VOD_Downloader
                                 
                 foreach (var vod in VODList.data)
                 {
+                    Bitmap bitmap2;
                     string thumbnail = vod.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300");
-                    System.Net.WebRequest request = System.Net.WebRequest.Create(thumbnail);
-                    System.Net.WebResponse response = request.GetResponse();
-                    System.IO.Stream responseStream = response.GetResponseStream();
-                    Bitmap bitmap2 = new Bitmap(responseStream);
+                    if(thumbnail != "")
+                    {
+                        System.Net.WebRequest request = System.Net.WebRequest.Create(thumbnail);
+                        System.Net.WebResponse response = request.GetResponse();
+                        System.IO.Stream responseStream = response.GetResponseStream();
+                        bitmap2 = new Bitmap(responseStream);
+                    }
+                    else
+                    {
+                        bitmap2 = new Bitmap(Properties.Resources.replacementIcon);
+                    }
+                    
 
                     updateGUIThread.Report(new Tuple<string, string, Bitmap, string>("Download", vod.title, bitmap2, vod.description));
 
