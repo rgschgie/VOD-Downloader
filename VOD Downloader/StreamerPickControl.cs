@@ -24,11 +24,11 @@ namespace VOD_Downloader
         public event EventHandler<SelectedItemEventArgs> ItemHasBeenSelected;
 
 
-        [Description("Selected Streamer information"), Category("Data")]
-        public UserInformation SelectedStreamer
-        {
-            get { return SelectedStreamer; }
-        }
+        //[Description("Selected Streamer information"), Category("Data")]
+        //public UserInformation SelectedStreamer
+        //{
+            
+        //}
 
 
         private int _userID;

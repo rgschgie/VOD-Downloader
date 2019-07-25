@@ -45,21 +45,14 @@ namespace VOD_Downloader
         }
 
 
-
         private void GetSelectedStreamer()
         {
-            
-            
-            var uc = new StreamerPickControl();
-            uc.ItemHasBeenSelected += uc_StreamerHasBeenSelected;
-
-            tabPage4.Controls.Add(uc);
-            uc.setupStreamerPickControl(_userID);
+            streamerPickControl1.setupStreamerPickControl(_userID);
+            streamerPickControl1.ItemHasBeenSelected += StreamerPickControl1_ItemHasBeenSelected;
         }
 
-        private void uc_StreamerHasBeenSelected(object sender, StreamerPickControl.SelectedItemEventArgs e)
+        private void StreamerPickControl1_ItemHasBeenSelected(object sender, StreamerPickControl.SelectedItemEventArgs e)
         {
-            Console.WriteLine(!this.Controls.ContainsKey("StreamerPickControl"));
             GetSelectedStream(e.SelectedChoice);
             Console.WriteLine(e.SelectedChoice.login);
             tabControl1.SelectedIndex = 1;
@@ -74,25 +67,20 @@ namespace VOD_Downloader
 
         public void GetSelectedStream(UserInformation selectedStreamer)
         {
-            var uc = new StreamPickControl();
-            uc.ItemHasBeenSelected += uc_StreamHasBeenSelected;
-
-            tabPage5.Controls.Add(uc);
-            uc.setupStreamPickControl(selectedStreamer);
+            streamPickControl_Remake1.setupStreamPickControl(selectedStreamer);
+            streamPickControl_Remake1.ItemHasBeenSelected += StreamPickControl_Remake1_ItemHasBeenSelected;
         }
-        private void uc_StreamHasBeenSelected(object sender, StreamPickControl.SelectedItemEventArgs e)
+
+        private void StreamPickControl_Remake1_ItemHasBeenSelected(object sender, StreamPickControl_Remake.SelectedItemEventArgs e)
         {
             Console.WriteLine(e.SelectedChoice.title);
             tabControl1.SelectedIndex = 2;
             GenerateDownloadVODControl(e.SelectedChoice);
         }
-
         
         public void GenerateDownloadVODControl(VODObject selectedVOD)
         {
-            var uc = new DownloadControl();
-            tabPage6.Controls.Add(uc);
-            uc.SetUpDownload(selectedVOD);
+            downloadControl1.SetUpDownload(selectedVOD);
         }
 
         private void Button1_Click(object sender, EventArgs e)

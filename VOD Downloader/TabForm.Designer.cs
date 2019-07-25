@@ -30,8 +30,11 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.streamerPickControl1 = new VOD_Downloader.StreamerPickControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.streamPickControl_Remake1 = new VOD_Downloader.StreamPickControl_Remake();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.downloadControl1 = new VOD_Downloader.DownloadControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.streamerPickControl = new VOD_Downloader.StreamerPickControl();
             this.loadingDoneLabel = new System.Windows.Forms.Label();
@@ -58,9 +61,11 @@
             this.selectedVODPictureBox = new System.Windows.Forms.PictureBox();
             this.userIdLabel = new System.Windows.Forms.Label();
             this.userPictureBox = new System.Windows.Forms.PictureBox();
-            this.downloadQueue1 = new VOD_Downloader.DownloadQueue();
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -81,38 +86,62 @@
             this.tabControl1.Location = new System.Drawing.Point(201, 50);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(961, 647);
+            this.tabControl1.Size = new System.Drawing.Size(961, 649);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.streamerPickControl1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(953, 621);
+            this.tabPage4.Size = new System.Drawing.Size(953, 623);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
+            // 
+            // streamerPickControl1
+            // 
+            this.streamerPickControl1.Location = new System.Drawing.Point(6, 0);
+            this.streamerPickControl1.Name = "streamerPickControl1";
+            this.streamerPickControl1.Size = new System.Drawing.Size(904, 615);
+            this.streamerPickControl1.TabIndex = 0;
             // 
             // tabPage5
             // 
             this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage5.Controls.Add(this.streamPickControl_Remake1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(953, 621);
+            this.tabPage5.Size = new System.Drawing.Size(953, 623);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
+            // 
+            // streamPickControl_Remake1
+            // 
+            this.streamPickControl_Remake1.Location = new System.Drawing.Point(16, 17);
+            this.streamPickControl_Remake1.Name = "streamPickControl_Remake1";
+            this.streamPickControl_Remake1.Size = new System.Drawing.Size(822, 595);
+            this.streamPickControl_Remake1.TabIndex = 0;
             // 
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage6.Controls.Add(this.downloadControl1);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(953, 621);
+            this.tabPage6.Size = new System.Drawing.Size(953, 623);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
+            // 
+            // downloadControl1
+            // 
+            this.downloadControl1.Location = new System.Drawing.Point(40, 17);
+            this.downloadControl1.Name = "downloadControl1";
+            this.downloadControl1.Size = new System.Drawing.Size(776, 626);
+            this.downloadControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -123,7 +152,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(953, 621);
+            this.tabPage1.Size = new System.Drawing.Size(953, 623);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Followed Streamers";
             // 
@@ -190,7 +219,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(953, 621);
+            this.tabPage2.Size = new System.Drawing.Size(953, 623);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Past Streams";
             // 
@@ -252,7 +281,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(953, 621);
+            this.tabPage3.Size = new System.Drawing.Size(953, 623);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Download Stream";
             // 
@@ -365,16 +394,9 @@
             this.userPictureBox.TabIndex = 2;
             this.userPictureBox.TabStop = false;
             // 
-            // downloadQueue1
-            // 
-            this.downloadQueue1.Location = new System.Drawing.Point(23, 727);
-            this.downloadQueue1.Name = "downloadQueue1";
-            this.downloadQueue1.Size = new System.Drawing.Size(668, 156);
-            this.downloadQueue1.TabIndex = 3;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(184, 753);
+            this.button1.Location = new System.Drawing.Point(23, 620);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 51);
             this.button1.TabIndex = 4;
@@ -388,7 +410,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 907);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.downloadQueue1);
             this.Controls.Add(this.userPictureBox);
             this.Controls.Add(this.userIdLabel);
             this.Controls.Add(this.tabControl1);
@@ -396,6 +417,9 @@
             this.Text = "TabForm";
             this.Load += new System.EventHandler(this.TabForm_Load);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -437,11 +461,13 @@
         private System.Windows.Forms.Label pleaseWaitLabel;
         private System.Windows.Forms.PictureBox selectedVODPictureBox;
         private System.Windows.Forms.PictureBox userPictureBox;
-        private DownloadQueue downloadQueue1;
         private StreamerPickControl streamerPickControl;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Button button1;
+        private StreamerPickControl streamerPickControl1;
+        private StreamPickControl_Remake streamPickControl_Remake1;
+        private DownloadControl downloadControl1;
     }
 }

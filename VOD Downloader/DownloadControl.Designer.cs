@@ -38,6 +38,7 @@
             this.TitleLabel = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.selectedVODPictureBox = new System.Windows.Forms.PictureBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -168,5 +169,6 @@
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.PictureBox selectedVODPictureBox;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

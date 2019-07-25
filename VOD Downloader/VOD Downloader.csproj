@@ -58,6 +58,9 @@
     <Reference Include="NYoutubeDL, Version=0.10.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NYoutubeDL.0.10.5\lib\netstandard2.0\NYoutubeDL.dll</HintPath>
     </Reference>
+    <Reference Include="Syroot.KnownFolders, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syroot.Windows.IO.KnownFolders.1.2.1\lib\net452\Syroot.KnownFolders.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -116,6 +119,12 @@
     <Compile Include="StreamerPickControl.Designer.cs">
       <DependentUpon>StreamerPickControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="StreamPickControl-Remake.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StreamPickControl-Remake.Designer.cs">
+      <DependentUpon>StreamPickControl-Remake.cs</DependentUpon>
+    </Compile>
     <Compile Include="StreamPickControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StreamerPickControl.resx">
       <DependentUpon>StreamerPickControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StreamPickControl-Remake.resx">
+      <DependentUpon>StreamPickControl-Remake.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamPickControl.resx">
       <DependentUpon>StreamPickControl.cs</DependentUpon>

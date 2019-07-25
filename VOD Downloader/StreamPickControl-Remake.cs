@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace VOD_Downloader
 {
-    public partial class StreamPickControl : UserControl
+    public partial class StreamPickControl_Remake : UserControl
     {
 
         List<VODObject> _VODList;
@@ -18,8 +18,6 @@ namespace VOD_Downloader
         private VODObject _selectedStream;
         private string _pagination;
         private int nextCount = 0;
-        
-
 
         public class SelectedItemEventArgs : EventArgs
         {
@@ -29,16 +27,23 @@ namespace VOD_Downloader
         public event EventHandler<SelectedItemEventArgs> ItemHasBeenSelected;
 
 
-        public StreamPickControl()
+        public StreamPickControl_Remake()
         {
             InitializeComponent();
         }
+
+        private void StreamPickControl_Remake_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
         public void setupStreamPickControl(UserInformation selectedStreamer)
         {
             _selectedStreamer = selectedStreamer;
             ClearDataGridView();
             FillPastStreamsDataGridView(GetPastStreams());
+
         }
 
         private void FillPastStreamsDataGridView(VODMasterObject VODList)
@@ -57,12 +62,12 @@ namespace VOD_Downloader
 
             Task.Run(() =>
             {
-                                
+
                 foreach (var vod in VODList.data)
                 {
                     Bitmap bitmap2;
                     string thumbnail = vod.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300");
-                    if(thumbnail != "")
+                    if (thumbnail != "")
                     {
                         System.Net.WebRequest request = System.Net.WebRequest.Create(thumbnail);
                         System.Net.WebResponse response = request.GetResponse();
@@ -73,7 +78,7 @@ namespace VOD_Downloader
                     {
                         bitmap2 = new Bitmap(Properties.Resources.replacementIcon);
                     }
-                    
+
 
                     updateGUIThread.Report(new Tuple<string, string, Bitmap, string>("Download", vod.title, bitmap2, vod.description));
 
@@ -89,11 +94,18 @@ namespace VOD_Downloader
         }
         private VODMasterObject GetPastStreams(string beforeOrAfter, string pagination, string previousStreamType)
         {
-            return APICalls.GetStreams(_selectedStreamer.id,beforeOrAfter,pagination, "highlight");
+            return APICalls.GetStreams(_selectedStreamer.id, beforeOrAfter, pagination, "highlight");
         }
 
+        public void ClearDataGridView()
+        {
+            dataGridView2.Rows.Clear();
+            dataGridView2.Refresh();
+        }
 
-        private void DataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+       
+
+        private void DataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
@@ -104,23 +116,17 @@ namespace VOD_Downloader
             }
         }
 
-        private void NextButton_Click(object sender, EventArgs e)
+        private void NextButton_Click_1(object sender, EventArgs e)
         {
             ClearDataGridView();
             FillPastStreamsDataGridView(GetPastStreams("&after=", _pagination, "highlight"));
             ++nextCount;
             Console.WriteLine(nextCount);
             PreviousButton.Visible = true;
-            
+
         }
 
-        public void ClearDataGridView()
-        {
-            dataGridView2.Rows.Clear();
-            dataGridView2.Refresh();
-        }
-
-        private void PreviousButton_Click(object sender, EventArgs e)
+        private void PreviousButton_Click_1(object sender, EventArgs e)
         {
             ClearDataGridView();
             FillPastStreamsDataGridView(GetPastStreams("&before=", _pagination, "highlight"));

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using NYoutubeDL;
 using Newtonsoft.Json;
+using Syroot.Windows.IO;
 
 namespace VOD_Downloader
 {
@@ -137,7 +138,7 @@ namespace VOD_Downloader
 
                     VideoQuality downloadQuality = _videoQualityFormats.VideoQualityList.Find(x => x.format == comboBox1.Text);
 
-
+                  
 
                     NYoutubeDL.Helpers.FileSizeRate help = new NYoutubeDL.Helpers.FileSizeRate(1.0, NYoutubeDL.Helpers.Enums.ByteUnit.M);
 
@@ -147,9 +148,23 @@ namespace VOD_Downloader
 
                     string fileType = downloadQuality.extension;
                     youtubeDL.Options.PostProcessingOptions.FfmpegLocation = "C:\\ffmpeg.exe";
-                    youtubeDL.Options.FilesystemOptions.Output = String.Format(@"C:\Users\rgsch\Downloads\{0}_{1}.{2}", _selectedVOD.title, downloadQuality.format, fileType);
 
+                    saveFileDialog1.RestoreDirectory = true;
+                    saveFileDialog1.InitialDirectory = KnownFolders.Downloads.Path;
+                    saveFileDialog1.Filter = "Media Files| *.mpg; *.avi; *.wma; *.mov; *.wav; *.mp2; *.mp3; *.mp4 | All Files | *.* ";
+                    saveFileDialog1.Title = "Save the selected VOD";
+                    string fileName = String.Format("{0}{1}.{2}", _selectedVOD.title, downloadQuality.format, fileType);
+                    foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                    {
+                        fileName = fileName.Replace(c, '_');
+                    }
+                    saveFileDialog1.FileName = fileName;
+                    saveFileDialog1.ShowDialog();
 
+                    if (saveFileDialog1.FileName != "")
+                    {
+                        youtubeDL.Options.FilesystemOptions.Output = saveFileDialog1.FileName;
+                    }
 
                     Console.WriteLine(downloadQuality.size);
 
