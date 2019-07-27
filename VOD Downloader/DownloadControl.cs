@@ -35,6 +35,7 @@ namespace VOD_Downloader
         public void SetUpDownload(VODObject selectedVOD)
         {
             _selectedVOD = selectedVOD;
+            ClearForm();
             populateComboBoxWithVideoFormats();
         }
 
@@ -314,5 +315,16 @@ namespace VOD_Downloader
         {
 
         }
+
+        private void ClearForm()
+        {
+            selectedVODPictureBox.InitialImage = null;
+            TitleLabel.Text = "";
+            CreatedLabel.Text = "";
+            SizeLabel.Text = "";
+            comboBox1.Items.Clear();
+            FileNameTextBox.Text = "";
+        }
+
     }
 }

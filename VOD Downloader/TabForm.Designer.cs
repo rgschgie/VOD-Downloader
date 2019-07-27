@@ -61,7 +61,8 @@
             this.selectedVODPictureBox = new System.Windows.Forms.PictureBox();
             this.userIdLabel = new System.Windows.Forms.Label();
             this.userPictureBox = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.TabBackButton = new System.Windows.Forms.Button();
+            this.TabForwardButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -83,10 +84,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(201, 50);
+            this.tabControl1.Location = new System.Drawing.Point(216, 46);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(961, 649);
+            this.tabControl1.Size = new System.Drawing.Size(848, 649);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage4
@@ -96,7 +97,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(953, 623);
+            this.tabPage4.Size = new System.Drawing.Size(840, 623);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             // 
@@ -114,7 +115,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(953, 623);
+            this.tabPage5.Size = new System.Drawing.Size(840, 623);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             // 
@@ -132,7 +133,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(953, 623);
+            this.tabPage6.Size = new System.Drawing.Size(840, 623);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
             // 
@@ -394,22 +395,36 @@
             this.userPictureBox.TabIndex = 2;
             this.userPictureBox.TabStop = false;
             // 
-            // button1
+            // TabBackButton
             // 
-            this.button1.Location = new System.Drawing.Point(23, 620);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 51);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.TabBackButton.Enabled = false;
+            this.TabBackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TabBackButton.Location = new System.Drawing.Point(216, 718);
+            this.TabBackButton.Name = "TabBackButton";
+            this.TabBackButton.Size = new System.Drawing.Size(164, 58);
+            this.TabBackButton.TabIndex = 3;
+            this.TabBackButton.Text = "Cannot go back";
+            this.TabBackButton.UseVisualStyleBackColor = true;
+            this.TabBackButton.Click += new System.EventHandler(this.Button1_Click_1);
+            // 
+            // TabForwardButton
+            // 
+            this.TabForwardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TabForwardButton.Location = new System.Drawing.Point(876, 718);
+            this.TabForwardButton.Name = "TabForwardButton";
+            this.TabForwardButton.Size = new System.Drawing.Size(184, 58);
+            this.TabForwardButton.TabIndex = 4;
+            this.TabForwardButton.Text = "Forward to Past Streams";
+            this.TabForwardButton.UseVisualStyleBackColor = true;
+            this.TabForwardButton.Click += new System.EventHandler(this.Button2_Click);
             // 
             // TabForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 907);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TabForwardButton);
+            this.Controls.Add(this.TabBackButton);
             this.Controls.Add(this.userPictureBox);
             this.Controls.Add(this.userIdLabel);
             this.Controls.Add(this.tabControl1);
@@ -465,9 +480,10 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.Button button1;
         private StreamerPickControl streamerPickControl1;
         private StreamPickControl_Remake streamPickControl_Remake1;
         private DownloadControl downloadControl1;
+        private System.Windows.Forms.Button TabBackButton;
+        private System.Windows.Forms.Button TabForwardButton;
     }
 }

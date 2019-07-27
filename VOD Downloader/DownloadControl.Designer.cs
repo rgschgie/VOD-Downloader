@@ -39,6 +39,8 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.selectedVODPictureBox = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.VideoQualityLabel = new System.Windows.Forms.Label();
+            this.DownloadNameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,59 +87,78 @@
             // 
             // FileNameTextBox
             // 
-            this.FileNameTextBox.Location = new System.Drawing.Point(154, 383);
+            this.FileNameTextBox.Location = new System.Drawing.Point(199, 383);
             this.FileNameTextBox.Name = "FileNameTextBox";
-            this.FileNameTextBox.Size = new System.Drawing.Size(417, 20);
+            this.FileNameTextBox.Size = new System.Drawing.Size(334, 20);
             this.FileNameTextBox.TabIndex = 15;
             // 
             // SizeLabel
             // 
-            this.SizeLabel.AutoSize = true;
-            this.SizeLabel.Location = new System.Drawing.Point(320, 291);
+            this.SizeLabel.Location = new System.Drawing.Point(182, 287);
             this.SizeLabel.Name = "SizeLabel";
-            this.SizeLabel.Size = new System.Drawing.Size(35, 13);
+            this.SizeLabel.Size = new System.Drawing.Size(351, 17);
             this.SizeLabel.TabIndex = 13;
-            this.SizeLabel.Text = "label3";
+            this.SizeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CreatedLabel
             // 
-            this.CreatedLabel.AutoSize = true;
-            this.CreatedLabel.Location = new System.Drawing.Point(320, 259);
+            this.CreatedLabel.Location = new System.Drawing.Point(182, 260);
             this.CreatedLabel.Name = "CreatedLabel";
-            this.CreatedLabel.Size = new System.Drawing.Size(35, 13);
+            this.CreatedLabel.Size = new System.Drawing.Size(351, 17);
             this.CreatedLabel.TabIndex = 12;
-            this.CreatedLabel.Text = "label2";
+            this.CreatedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TitleLabel
             // 
-            this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Location = new System.Drawing.Point(320, 230);
+            this.TitleLabel.Location = new System.Drawing.Point(182, 233);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(35, 13);
+            this.TitleLabel.Size = new System.Drawing.Size(351, 17);
             this.TitleLabel.TabIndex = 11;
-            this.TitleLabel.Text = "label1";
+            this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(199, 336);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(292, 21);
+            this.comboBox1.Size = new System.Drawing.Size(334, 21);
             this.comboBox1.TabIndex = 10;
             // 
             // selectedVODPictureBox
             // 
-            this.selectedVODPictureBox.Location = new System.Drawing.Point(199, 51);
+            this.selectedVODPictureBox.Location = new System.Drawing.Point(185, 29);
             this.selectedVODPictureBox.Name = "selectedVODPictureBox";
-            this.selectedVODPictureBox.Size = new System.Drawing.Size(292, 163);
+            this.selectedVODPictureBox.Size = new System.Drawing.Size(348, 185);
             this.selectedVODPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.selectedVODPictureBox.TabIndex = 14;
             this.selectedVODPictureBox.TabStop = false;
+            // 
+            // VideoQualityLabel
+            // 
+            this.VideoQualityLabel.AutoSize = true;
+            this.VideoQualityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VideoQualityLabel.Location = new System.Drawing.Point(101, 339);
+            this.VideoQualityLabel.Name = "VideoQualityLabel";
+            this.VideoQualityLabel.Size = new System.Drawing.Size(95, 15);
+            this.VideoQualityLabel.TabIndex = 20;
+            this.VideoQualityLabel.Text = "Video Quality:";
+            // 
+            // DownloadNameLabel
+            // 
+            this.DownloadNameLabel.AutoSize = true;
+            this.DownloadNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DownloadNameLabel.Location = new System.Drawing.Point(79, 386);
+            this.DownloadNameLabel.Name = "DownloadNameLabel";
+            this.DownloadNameLabel.Size = new System.Drawing.Size(117, 15);
+            this.DownloadNameLabel.TabIndex = 21;
+            this.DownloadNameLabel.Text = "Download Name:";
             // 
             // DownloadControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.DownloadNameLabel);
+            this.Controls.Add(this.VideoQualityLabel);
             this.Controls.Add(this.pleaseWaitLabel);
             this.Controls.Add(this.PreparingToLoadLabel);
             this.Controls.Add(this.progressBar1);
@@ -170,5 +191,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.PictureBox selectedVODPictureBox;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label VideoQualityLabel;
+        private System.Windows.Forms.Label DownloadNameLabel;
     }
 }

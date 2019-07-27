@@ -55,7 +55,7 @@ namespace VOD_Downloader
         {
             GetSelectedStream(e.SelectedChoice);
             Console.WriteLine(e.SelectedChoice.login);
-            tabControl1.SelectedIndex = 1;
+            changeTab(TabDirection.Forward);
         }
 
         private UserInformation getUserInformation()
@@ -74,7 +74,7 @@ namespace VOD_Downloader
         private void StreamPickControl_Remake1_ItemHasBeenSelected(object sender, StreamPickControl_Remake.SelectedItemEventArgs e)
         {
             Console.WriteLine(e.SelectedChoice.title);
-            tabControl1.SelectedIndex = 2;
+            changeTab(TabDirection.Forward);
             GenerateDownloadVODControl(e.SelectedChoice);
         }
         
@@ -92,5 +92,83 @@ namespace VOD_Downloader
             ?.Description
         ?? BaseURL.PastStreamURL.ToString());
         }
+
+        private void Button1_Click_1(object sender, EventArgs e)
+        {
+
+            changeTab(TabDirection.Back);
+
+        }
+
+        private void changeTab(TabDirection tabDirection)
+        {
+            switch (tabDirection)
+            {
+                case TabDirection.Forward:
+
+                    switch (tabControl1.SelectedIndex)
+                    {
+                        case 0:
+                            TabBackButton.Text = "Back to Followed Streamers";
+                            TabForwardButton.Text = "Forward to Download Stream";
+                            TabBackButton.Enabled = true;
+                            tabControl1.SelectedIndex = 1;
+                            break;
+                        case 1:
+                            TabBackButton.Text = "Back to Past Streams";
+                            TabForwardButton.Text = "Cannot go forward";
+                            tabControl1.SelectedIndex = 2;
+                            TabForwardButton.Enabled = false;
+                            break;
+                        case 2:
+                            break;
+                    }    
+                    break;
+
+
+                case TabDirection.Back:
+
+                    switch (tabControl1.SelectedIndex)
+                    {
+                        case 0:
+
+                            break;
+                        case 1:
+                            TabBackButton.Text = "Cannot go back";
+                            TabForwardButton.Text = "Forward to Past Streams";
+                            TabBackButton.Enabled = false;
+                            tabControl1.SelectedIndex = 0;
+                            break;
+                        case 2:
+                            TabBackButton.Text = "Back to Followed Streamers";
+                            TabForwardButton.Text = "Forward to Download Stream";
+                            TabForwardButton.Enabled = true;
+                            tabControl1.SelectedIndex = 1;
+                            break;
+                    }
+
+
+                    break;
+
+                default:
+                        break;
+            }
+
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+
+            changeTab(TabDirection.Forward);
+
+        }
+
+        private enum TabDirection
+        {
+            Forward,
+            Back
+        }
     }
+
+    
 }
