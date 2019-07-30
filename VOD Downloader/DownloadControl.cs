@@ -11,6 +11,7 @@ using System.Threading;
 using NYoutubeDL;
 using Newtonsoft.Json;
 using Syroot.Windows.IO;
+using System.Diagnostics;
 
 namespace VOD_Downloader
 {
@@ -20,7 +21,7 @@ namespace VOD_Downloader
 
         VODObject _selectedVOD;
         VideoQualityFormat _videoQualityFormats;
-
+        string _fileName = "";
 
 
 
@@ -44,7 +45,7 @@ namespace VOD_Downloader
            
                 var updateGUIThread = new Progress<VideoQualityFormat>((value) =>
             {
-
+                ClearForm();
                 value.VideoQualityList.ForEach(x => comboBox1.Items.Add(x.format));
                 selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
                 TitleLabel.Text = _selectedVOD.title;
@@ -77,7 +78,15 @@ namespace VOD_Downloader
                 }
                 else
                 {
-                    selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
+                    try
+                    {
+                        selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
+                    }
+                    catch (Exception e)
+                    {
+                        selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
+                    }
+                        
                 }
 
             });
@@ -112,7 +121,13 @@ namespace VOD_Downloader
 
         private void DownloadVOD()
         {
-            var updateProgressBar = new Progress<int>(value => { progressBar1.Value = (value > 100) ? 100 : value; });
+            var updateProgressBar = new Progress<int>(value => {
+                progressBar1.Value = (value > 100) ? 100 : value;
+                if(value >= 100)
+                {
+                    Process.Start(System.IO.Directory.GetParent(_fileName).FullName);
+                }
+            });
 
             var updateLoadingMessage = new Progress<bool>(isPreparingToDownload =>
             {
@@ -139,33 +154,44 @@ namespace VOD_Downloader
 
                     VideoQuality downloadQuality = _videoQualityFormats.VideoQualityList.Find(x => x.format == comboBox1.Text);
 
-                  
-
-                    NYoutubeDL.Helpers.FileSizeRate help = new NYoutubeDL.Helpers.FileSizeRate(1.0, NYoutubeDL.Helpers.Enums.ByteUnit.M);
-
-                    var youtubeDL = new YoutubeDL();
-                    youtubeDL.VideoUrl = downloadQuality.url;
-                    // youtubeDL.Options.DownloadOptions.LimitRate = help;
 
                     string fileType = downloadQuality.extension;
-                    youtubeDL.Options.PostProcessingOptions.FfmpegLocation = "C:\\ffmpeg.exe";
 
-                    saveFileDialog1.RestoreDirectory = true;
-                    saveFileDialog1.InitialDirectory = KnownFolders.Downloads.Path;
-                    saveFileDialog1.Filter = "Media Files| *.mpg; *.avi; *.wma; *.mov; *.wav; *.mp2; *.mp3; *.mp4 | All Files | *.* ";
-                    saveFileDialog1.Title = "Save the selected VOD";
-                    string fileName = String.Format("{0}{1}.{2}", _selectedVOD.title, downloadQuality.format, fileType);
+
+                    _fileName = String.Format("{0}{1}.{2}", _selectedVOD.title, downloadQuality.format, fileType);
                     foreach (char c in System.IO.Path.GetInvalidFileNameChars())
                     {
-                        fileName = fileName.Replace(c, '_');
+                        _fileName = _fileName.Replace(c, '_');
                     }
-                    saveFileDialog1.FileName = fileName;
-                    saveFileDialog1.ShowDialog();
 
-                    if (saveFileDialog1.FileName != "")
+                    SaveFileDialog savefileDialog = new SaveFileDialog()
                     {
-                        youtubeDL.Options.FilesystemOptions.Output = saveFileDialog1.FileName;
+                        RestoreDirectory = true,
+                        InitialDirectory = KnownFolders.Downloads.Path.ToString(),
+                        Filter = "All Media Files | *.wav; *.aac; *.wma; *.wmv; *.avi; *.mpg; *.mpeg; *.m1v; *.mp2; *.mp3; *.mpa; *.mpe; *.m3u; *.mp4; *.mov; *.3g2; *.3gp2; *.3gp; *.3gpp; *.m4a; *.cda; *.aif; *.aifc; *.aiff; *.mid; *.midi; *.rmi; *.mkv; *.WAV; *.AAC; *.WMA; *.WMV; *.AVI; *.MPG; *.MPEG; *.M1V; *.MP2; *.MP3; *.MPA; *.MPE; *.M3U; *.MP4; *.MOV; *.3G2; *.3GP2; *.3GP; *.3GPP; *.M4A; *.CDA; *.AIF; *.AIFC; *.AIFF; *.MID; *.MIDI; *.RMI; *.MKV",
+                        Title = "Save Selected VOD",
+                        FileName = _fileName
+                };
+                    savefileDialog.ShowDialog();
+
+                    _fileName = savefileDialog.FileName;
+
+                    YoutubeDL youtubeDL = new YoutubeDL()
+                    {
+                        VideoUrl = downloadQuality.url
+                    };
+                    youtubeDL.Options.PostProcessingOptions.FfmpegLocation = "C:\\ffmpeg.exe";
+
+
+                    if (savefileDialog.FileName != "")
+                    {
+                        youtubeDL.Options.FilesystemOptions.Output = savefileDialog.FileName;
                     }
+                    else
+                    {
+                        return;
+                    }
+
 
                     Console.WriteLine(downloadQuality.size);
 
@@ -182,7 +208,6 @@ namespace VOD_Downloader
                             youtubeDL.StandardOutputEvent += (sender, output) =>
                             {
                                 Console.WriteLine(output);
-                                //sw.WriteLine(output);
                             };
                             youtubeDL.StandardErrorEvent += (sender, errorOutput) =>
                             {
@@ -220,10 +245,13 @@ namespace VOD_Downloader
                             Thread.Sleep(1000);
                             updateGUIThreadDownload?.Report(100);
 
-                            MessageBox.Show("Done");
+                            
+
+                            //MessageBox.Show("Done");
+
                         });
 
-
+                       
                         
                     }
                     catch (Exception e)
@@ -323,6 +351,7 @@ namespace VOD_Downloader
             CreatedLabel.Text = "";
             SizeLabel.Text = "";
             comboBox1.Items.Clear();
+            comboBox1.Text = "";
             FileNameTextBox.Text = "";
         }
 

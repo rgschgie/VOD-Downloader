@@ -35,6 +35,15 @@
             this.VODTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThumbnailImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.DescriptionText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedPeriodComboBox = new System.Windows.Forms.ComboBox();
+            this.SortByComboBox = new System.Windows.Forms.ComboBox();
+            this.ItemsPerPageComboBox = new System.Windows.Forms.ComboBox();
+            this.VideoTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.CreatePeriodLabel = new System.Windows.Forms.Label();
+            this.SortLabel = new System.Windows.Forms.Label();
+            this.ItemsPerPageLabel = new System.Windows.Forms.Label();
+            this.VideoTypeLabel = new System.Windows.Forms.Label();
+            this.ApplyButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,18 +111,136 @@
             this.DescriptionText.ReadOnly = true;
             this.DescriptionText.Width = 200;
             // 
+            // CreatedPeriodComboBox
+            // 
+            this.CreatedPeriodComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreatedPeriodComboBox.FormattingEnabled = true;
+            this.CreatedPeriodComboBox.Items.AddRange(new object[] {
+            "all",
+            "day",
+            "week",
+            "month"});
+            this.CreatedPeriodComboBox.Location = new System.Drawing.Point(804, 104);
+            this.CreatedPeriodComboBox.Name = "CreatedPeriodComboBox";
+            this.CreatedPeriodComboBox.Size = new System.Drawing.Size(131, 24);
+            this.CreatedPeriodComboBox.TabIndex = 9;
+            this.CreatedPeriodComboBox.Text = "all";
+            // 
+            // SortByComboBox
+            // 
+            this.SortByComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.SortByComboBox.FormattingEnabled = true;
+            this.SortByComboBox.Items.AddRange(new object[] {
+            "time",
+            "trending",
+            "views"});
+            this.SortByComboBox.Location = new System.Drawing.Point(804, 193);
+            this.SortByComboBox.Name = "SortByComboBox";
+            this.SortByComboBox.Size = new System.Drawing.Size(131, 24);
+            this.SortByComboBox.TabIndex = 10;
+            this.SortByComboBox.Text = "time";
+            // 
+            // ItemsPerPageComboBox
+            // 
+            this.ItemsPerPageComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.ItemsPerPageComboBox.FormattingEnabled = true;
+            this.ItemsPerPageComboBox.Items.AddRange(new object[] {
+            "10",
+            "20",
+            "40",
+            "60",
+            "80",
+            "100"});
+            this.ItemsPerPageComboBox.Location = new System.Drawing.Point(804, 294);
+            this.ItemsPerPageComboBox.Name = "ItemsPerPageComboBox";
+            this.ItemsPerPageComboBox.Size = new System.Drawing.Size(131, 24);
+            this.ItemsPerPageComboBox.TabIndex = 11;
+            this.ItemsPerPageComboBox.Text = "20";
+            // 
+            // VideoTypeComboBox
+            // 
+            this.VideoTypeComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.VideoTypeComboBox.FormattingEnabled = true;
+            this.VideoTypeComboBox.Items.AddRange(new object[] {
+            "all",
+            "upload",
+            "archive",
+            "highlight"});
+            this.VideoTypeComboBox.Location = new System.Drawing.Point(804, 392);
+            this.VideoTypeComboBox.Name = "VideoTypeComboBox";
+            this.VideoTypeComboBox.Size = new System.Drawing.Size(131, 24);
+            this.VideoTypeComboBox.TabIndex = 12;
+            this.VideoTypeComboBox.Text = "highlight";
+            // 
+            // CreatePeriodLabel
+            // 
+            this.CreatePeriodLabel.AutoSize = true;
+            this.CreatePeriodLabel.Location = new System.Drawing.Point(827, 88);
+            this.CreatePeriodLabel.Name = "CreatePeriodLabel";
+            this.CreatePeriodLabel.Size = new System.Drawing.Size(80, 13);
+            this.CreatePeriodLabel.TabIndex = 13;
+            this.CreatePeriodLabel.Text = "Created Period:";
+            // 
+            // SortLabel
+            // 
+            this.SortLabel.AutoSize = true;
+            this.SortLabel.Location = new System.Drawing.Point(843, 177);
+            this.SortLabel.Name = "SortLabel";
+            this.SortLabel.Size = new System.Drawing.Size(41, 13);
+            this.SortLabel.TabIndex = 14;
+            this.SortLabel.Text = "Sort By";
+            // 
+            // ItemsPerPageLabel
+            // 
+            this.ItemsPerPageLabel.AutoSize = true;
+            this.ItemsPerPageLabel.Location = new System.Drawing.Point(828, 278);
+            this.ItemsPerPageLabel.Name = "ItemsPerPageLabel";
+            this.ItemsPerPageLabel.Size = new System.Drawing.Size(79, 13);
+            this.ItemsPerPageLabel.TabIndex = 15;
+            this.ItemsPerPageLabel.Text = "Items Per Page";
+            // 
+            // VideoTypeLabel
+            // 
+            this.VideoTypeLabel.AutoSize = true;
+            this.VideoTypeLabel.Location = new System.Drawing.Point(843, 376);
+            this.VideoTypeLabel.Name = "VideoTypeLabel";
+            this.VideoTypeLabel.Size = new System.Drawing.Size(61, 13);
+            this.VideoTypeLabel.TabIndex = 16;
+            this.VideoTypeLabel.Text = "Video Type";
+            // 
+            // ApplyButton
+            // 
+            this.ApplyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyButton.Location = new System.Drawing.Point(804, 458);
+            this.ApplyButton.Name = "ApplyButton";
+            this.ApplyButton.Size = new System.Drawing.Size(131, 38);
+            this.ApplyButton.TabIndex = 17;
+            this.ApplyButton.Text = "Apply";
+            this.ApplyButton.UseVisualStyleBackColor = true;
+            this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
+            // 
             // StreamPickControl_Remake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ApplyButton);
+            this.Controls.Add(this.VideoTypeLabel);
+            this.Controls.Add(this.ItemsPerPageLabel);
+            this.Controls.Add(this.SortLabel);
+            this.Controls.Add(this.CreatePeriodLabel);
+            this.Controls.Add(this.VideoTypeComboBox);
+            this.Controls.Add(this.ItemsPerPageComboBox);
+            this.Controls.Add(this.SortByComboBox);
+            this.Controls.Add(this.CreatedPeriodComboBox);
             this.Controls.Add(this.PreviousButton);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.dataGridView2);
             this.Name = "StreamPickControl_Remake";
-            this.Size = new System.Drawing.Size(793, 572);
+            this.Size = new System.Drawing.Size(963, 650);
             this.Load += new System.EventHandler(this.StreamPickControl_Remake_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,5 +253,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn VODTitle;
         private System.Windows.Forms.DataGridViewImageColumn ThumbnailImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionText;
+        private System.Windows.Forms.ComboBox CreatedPeriodComboBox;
+        private System.Windows.Forms.ComboBox SortByComboBox;
+        private System.Windows.Forms.ComboBox ItemsPerPageComboBox;
+        private System.Windows.Forms.ComboBox VideoTypeComboBox;
+        private System.Windows.Forms.Label CreatePeriodLabel;
+        private System.Windows.Forms.Label SortLabel;
+        private System.Windows.Forms.Label ItemsPerPageLabel;
+        private System.Windows.Forms.Label VideoTypeLabel;
+        private System.Windows.Forms.Button ApplyButton;
     }
 }

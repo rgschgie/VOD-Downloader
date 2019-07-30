@@ -48,6 +48,8 @@ namespace VOD_Downloader
 
         private void FillPastStreamsDataGridView(VODMasterObject VODList)
         {
+            dataGridView2.Rows.Clear();
+
             _VODList = VODList.data;
             _pagination = VODList.pagination.cursor;
 
@@ -135,6 +137,14 @@ namespace VOD_Downloader
             if (nextCount < 1)
             {
                 PreviousButton.Visible = false;
+            }
+        }
+
+        private void ApplyButton_Click(object sender, EventArgs e)
+        {
+            if (_selectedStreamer != null)
+            {
+                FillPastStreamsDataGridView(APICalls.GetStreams(_selectedStreamer.id,VideoTypeComboBox.Text,CreatedPeriodComboBox.Text,SortByComboBox.Text, int.Parse(ItemsPerPageComboBox.Text)));
             }
         }
     }

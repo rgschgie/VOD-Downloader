@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -28,8 +29,16 @@ namespace VOD_Downloader
 
         private void TabForm_Load(object sender, EventArgs e)
         {
-            loadMainPageItems();
-            GetSelectedStreamer();
+            if(!Properties.Settings.Default.isUserNameSet)
+            {
+                new UserNameForm().ShowDialog();
+            }
+
+            if(Properties.Settings.Default.UserName.Any())
+            { 
+                loadMainPageItems();
+                GetSelectedStreamer();
+            }
         }
 
 
@@ -41,7 +50,7 @@ namespace VOD_Downloader
             _userPictureURL = userInformation.profile_image_url;
 
             userPictureBox.Load(_userPictureURL);
-            userIdLabel.Text = "feofeo0";
+            userIdLinkLabel.Text = Properties.Settings.Default.UserName;
         }
 
 
@@ -61,7 +70,7 @@ namespace VOD_Downloader
         private UserInformation getUserInformation()
         {
 
-            UserDataInformation userDataInformationObject = APICalls.GetStreamerInformation("feofeo0");
+            UserDataInformation userDataInformationObject = APICalls.GetStreamerInformation(Properties.Settings.Default.UserName);
             return userDataInformationObject.User[0];
         }
 
@@ -83,21 +92,9 @@ namespace VOD_Downloader
             downloadControl1.SetUpDownload(selectedVOD);
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void TabBackButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(BaseURL.PastStreamURL.GetType()
-            .GetMember(BaseURL.PastStreamURL.ToString())
-            .FirstOrDefault()
-            ?.GetCustomAttribute<DescriptionAttribute>()
-            ?.Description
-        ?? BaseURL.PastStreamURL.ToString());
-        }
-
-        private void Button1_Click_1(object sender, EventArgs e)
-        {
-
             changeTab(TabDirection.Back);
-
         }
 
         private void changeTab(TabDirection tabDirection)
@@ -156,17 +153,31 @@ namespace VOD_Downloader
 
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void TabForwardButton_Click(object sender, EventArgs e)
         {
-
             changeTab(TabDirection.Forward);
+        }
 
+        private void ResetLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+            new UserNameForm().ShowDialog();
+            if (Properties.Settings.Default.UserName.Any())
+            {
+                loadMainPageItems();
+                GetSelectedStreamer();
+            }
         }
 
         private enum TabDirection
         {
             Forward,
             Back
+        }
+
+        private void UserIdLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://twitch.tv/" + userIdLinkLabel.Text);
         }
     }
 

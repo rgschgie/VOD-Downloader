@@ -56,6 +56,9 @@ namespace VOD_Downloader
 
             //get followed streamers object
 
+            dataGridView1.Rows.Clear();
+
+
             _paginationStack.Push(followedStreamerObject.pagination.cursor);
 
             string streamerLoginNames = "";
@@ -111,9 +114,6 @@ namespace VOD_Downloader
             PreviousButton.Visible = true;
         }
 
-
-         
-
         public void ClearDataGridView()
         {
             dataGridView1.Rows.Clear();
@@ -138,6 +138,12 @@ namespace VOD_Downloader
                 string pagination = _paginationStack.Peek();
                 loadTabFollowedStreamers(APICalls.GetFollowedStreamersNext(_userID, pagination));
             }
+        }
+
+        private void ApplyButton_Click(object sender, EventArgs e)
+        {
+            int numOfObjects = int.Parse(ItemsPerPageComboBox.Text);
+            loadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID, numOfObjects));
         }
     }
 }

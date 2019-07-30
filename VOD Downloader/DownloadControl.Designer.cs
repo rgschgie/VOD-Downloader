@@ -38,7 +38,6 @@
             this.TitleLabel = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.selectedVODPictureBox = new System.Windows.Forms.PictureBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.VideoQualityLabel = new System.Windows.Forms.Label();
             this.DownloadNameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).BeginInit();
@@ -190,7 +189,6 @@
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.PictureBox selectedVODPictureBox;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label VideoQualityLabel;
         private System.Windows.Forms.Label DownloadNameLabel;
     }

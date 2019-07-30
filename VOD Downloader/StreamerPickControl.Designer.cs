@@ -34,6 +34,9 @@
             this.StreamerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NextButton = new System.Windows.Forms.Button();
             this.PreviousButton = new System.Windows.Forms.Button();
+            this.ItemsPerPageComboBox = new System.Windows.Forms.ComboBox();
+            this.ItemsPerPageLabel = new System.Windows.Forms.Label();
+            this.ApplyButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +49,7 @@
             this.SelectColumn,
             this.StreamerPicture,
             this.StreamerName});
-            this.dataGridView1.Location = new System.Drawing.Point(35, 21);
+            this.dataGridView1.Location = new System.Drawing.Point(27, 18);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -80,7 +83,7 @@
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(689, 583);
+            this.NextButton.Location = new System.Drawing.Point(681, 580);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(122, 23);
             this.NextButton.TabIndex = 2;
@@ -90,7 +93,7 @@
             // 
             // PreviousButton
             // 
-            this.PreviousButton.Location = new System.Drawing.Point(35, 583);
+            this.PreviousButton.Location = new System.Drawing.Point(27, 580);
             this.PreviousButton.Name = "PreviousButton";
             this.PreviousButton.Size = new System.Drawing.Size(122, 23);
             this.PreviousButton.TabIndex = 3;
@@ -99,17 +102,57 @@
             this.PreviousButton.Visible = false;
             this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
+            // ItemsPerPageComboBox
+            // 
+            this.ItemsPerPageComboBox.FormattingEnabled = true;
+            this.ItemsPerPageComboBox.Items.AddRange(new object[] {
+            "10",
+            "20",
+            "40",
+            "60",
+            "80",
+            "100"});
+            this.ItemsPerPageComboBox.Location = new System.Drawing.Point(838, 65);
+            this.ItemsPerPageComboBox.Name = "ItemsPerPageComboBox";
+            this.ItemsPerPageComboBox.Size = new System.Drawing.Size(121, 21);
+            this.ItemsPerPageComboBox.TabIndex = 4;
+            this.ItemsPerPageComboBox.Text = "20";
+            // 
+            // ItemsPerPageLabel
+            // 
+            this.ItemsPerPageLabel.AutoSize = true;
+            this.ItemsPerPageLabel.Location = new System.Drawing.Point(853, 49);
+            this.ItemsPerPageLabel.Name = "ItemsPerPageLabel";
+            this.ItemsPerPageLabel.Size = new System.Drawing.Size(79, 13);
+            this.ItemsPerPageLabel.TabIndex = 16;
+            this.ItemsPerPageLabel.Text = "Items Per Page";
+            // 
+            // ApplyButton
+            // 
+            this.ApplyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyButton.Location = new System.Drawing.Point(838, 511);
+            this.ApplyButton.Name = "ApplyButton";
+            this.ApplyButton.Size = new System.Drawing.Size(131, 38);
+            this.ApplyButton.TabIndex = 18;
+            this.ApplyButton.Text = "Apply";
+            this.ApplyButton.UseVisualStyleBackColor = true;
+            this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
+            // 
             // StreamerPickControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ApplyButton);
+            this.Controls.Add(this.ItemsPerPageLabel);
+            this.Controls.Add(this.ItemsPerPageComboBox);
             this.Controls.Add(this.PreviousButton);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.dataGridView1);
             this.Name = "StreamerPickControl";
-            this.Size = new System.Drawing.Size(867, 620);
+            this.Size = new System.Drawing.Size(1011, 622);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -121,5 +164,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StreamerName;
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.Button PreviousButton;
+        private System.Windows.Forms.ComboBox ItemsPerPageComboBox;
+        private System.Windows.Forms.Label ItemsPerPageLabel;
+        private System.Windows.Forms.Button ApplyButton;
     }
 }

@@ -14,12 +14,20 @@ namespace VOD_Downloader
         {
             return APICall<VODMasterObject, int>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID.ToString(), "&type=", previousStreamType);
         }
+        public static VODMasterObject GetStreams(int streamerID, string previousStreamType, string period, string sort, int first)
+        {
+            return APICall<VODMasterObject, int>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID.ToString(), "&type=", previousStreamType, "&period=",period,"&sort=",sort,"&first=",first.ToString());
+        }
 
         public static VODMasterObject GetStreams(int streamerID, string beforeOrAfter, string pagination, string previousStreamType = "highlight")
         {
             return APICall<VODMasterObject, int>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID.ToString(), "&type=", previousStreamType, beforeOrAfter, pagination);
         }
 
+        public static UserFollowData GetFollowedStreamers(int streamerID, int numOfObjects)
+        {
+            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL.ToDescriptionString(), "from_id=", streamerID.ToString(),"&first=",numOfObjects.ToString());
+        }
 
         public static UserFollowData GetFollowedStreamersNext(int streamerID, string pagination)
         {
@@ -41,7 +49,7 @@ namespace VOD_Downloader
             return APICall<UserDataInformation, string>(BaseURL.UserAccountURL.ToDescriptionString(), "login=", username);
         }
 
-        private static T APICall<T, U>(params object[] list/*string baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "", string paramaterQueryNameThree = "", string parameterValueThree = ""*/)
+        private static T APICall<T, U>(params object[] list)
         {
             
             T returnInformation = default(T);
@@ -58,7 +66,7 @@ namespace VOD_Downloader
                         queryString = String.Format("{0}{1}",queryString,query.ToString());
                     }
                     //Console.WriteLine(string.Format("{0}{1}{2}{3}{4}", baseURL, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo));
-                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}",queryString/*"{0}{1}{2}{3}{4}{5}{6}", baseURL, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo,paramaterQueryNameThree, parameterValueThree */)))
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}",queryString)))
                     {
                         request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
                         HttpResponseMessage response = httpClient.SendAsync(request).Result;
