@@ -113,6 +113,7 @@
     <Compile Include="Obsolete\StreamerForm.Designer.cs">
       <DependentUpon>StreamerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SharedFunctions.cs" />
     <Compile Include="StreamerPickControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -205,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="loadingIcon.gif" />
+    <None Include="Resources\RedX.png" />
     <None Include="Resources\replacementIcon.png" />
   </ItemGroup>
   <ItemGroup>

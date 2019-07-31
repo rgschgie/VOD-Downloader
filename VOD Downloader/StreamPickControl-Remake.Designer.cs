@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PreviousButton = new System.Windows.Forms.Button();
             this.NextButton = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.StreamDataGridView = new System.Windows.Forms.DataGridView();
             this.DownloadButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.VODTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThumbnailImage = new System.Windows.Forms.DataGridViewImageColumn();
@@ -44,7 +46,7 @@
             this.ItemsPerPageLabel = new System.Windows.Forms.Label();
             this.VideoTypeLabel = new System.Windows.Forms.Label();
             this.ApplyButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StreamDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // PreviousButton
@@ -56,7 +58,7 @@
             this.PreviousButton.Text = "< Previous";
             this.PreviousButton.UseVisualStyleBackColor = true;
             this.PreviousButton.Visible = false;
-            this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click_1);
+            this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
             // NextButton
             // 
@@ -66,22 +68,26 @@
             this.NextButton.TabIndex = 7;
             this.NextButton.Text = "Next >";
             this.NextButton.UseVisualStyleBackColor = true;
-            this.NextButton.Click += new System.EventHandler(this.NextButton_Click_1);
+            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
-            // dataGridView2
+            // StreamDataGridView
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StreamDataGridView.AllowUserToAddRows = false;
+            this.StreamDataGridView.AllowUserToDeleteRows = false;
+            this.StreamDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.StreamDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DownloadButton,
             this.VODTitle,
             this.ThumbnailImage,
             this.DescriptionText});
-            this.dataGridView2.Location = new System.Drawing.Point(19, 15);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(757, 492);
-            this.dataGridView2.TabIndex = 6;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellContentClick_1);
+            this.StreamDataGridView.Location = new System.Drawing.Point(19, 15);
+            this.StreamDataGridView.Name = "StreamDataGridView";
+            this.StreamDataGridView.ReadOnly = true;
+            this.StreamDataGridView.RowTemplate.Height = 90;
+            this.StreamDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.StreamDataGridView.Size = new System.Drawing.Size(757, 492);
+            this.StreamDataGridView.TabIndex = 6;
+            this.StreamDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StreamDataGridView_CellContentClick);
             // 
             // DownloadButton
             // 
@@ -91,6 +97,8 @@
             // 
             // VODTitle
             // 
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VODTitle.DefaultCellStyle = dataGridViewCellStyle3;
             this.VODTitle.HeaderText = "Stream Title";
             this.VODTitle.Name = "VODTitle";
             this.VODTitle.ReadOnly = true;
@@ -106,6 +114,8 @@
             // 
             // DescriptionText
             // 
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DescriptionText.DefaultCellStyle = dataGridViewCellStyle4;
             this.DescriptionText.HeaderText = "Description";
             this.DescriptionText.Name = "DescriptionText";
             this.DescriptionText.ReadOnly = true;
@@ -234,11 +244,10 @@
             this.Controls.Add(this.CreatedPeriodComboBox);
             this.Controls.Add(this.PreviousButton);
             this.Controls.Add(this.NextButton);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.StreamDataGridView);
             this.Name = "StreamPickControl_Remake";
             this.Size = new System.Drawing.Size(963, 650);
-            this.Load += new System.EventHandler(this.StreamPickControl_Remake_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StreamDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,11 +257,7 @@
 
         private System.Windows.Forms.Button PreviousButton;
         private System.Windows.Forms.Button NextButton;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewButtonColumn DownloadButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VODTitle;
-        private System.Windows.Forms.DataGridViewImageColumn ThumbnailImage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionText;
+        private System.Windows.Forms.DataGridView StreamDataGridView;
         private System.Windows.Forms.ComboBox CreatedPeriodComboBox;
         private System.Windows.Forms.ComboBox SortByComboBox;
         private System.Windows.Forms.ComboBox ItemsPerPageComboBox;
@@ -262,5 +267,9 @@
         private System.Windows.Forms.Label ItemsPerPageLabel;
         private System.Windows.Forms.Label VideoTypeLabel;
         private System.Windows.Forms.Button ApplyButton;
+        private System.Windows.Forms.DataGridViewButtonColumn DownloadButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VODTitle;
+        private System.Windows.Forms.DataGridViewImageColumn ThumbnailImage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionText;
     }
 }

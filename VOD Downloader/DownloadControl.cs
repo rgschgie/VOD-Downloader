@@ -12,6 +12,7 @@ using NYoutubeDL;
 using Newtonsoft.Json;
 using Syroot.Windows.IO;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace VOD_Downloader
 {
@@ -23,15 +24,10 @@ namespace VOD_Downloader
         VideoQualityFormat _videoQualityFormats;
         string _fileName = "";
 
-
-
-
         public DownloadControl()
         {
             InitializeComponent();
         }
-
-
 
         public void SetUpDownload(VODObject selectedVOD)
         {
@@ -71,13 +67,14 @@ namespace VOD_Downloader
 
             var updateGUIThread = new Progress<Boolean>((value) =>
             {
-
                 if (value)
                 {
+                    //loading image while video quality links loads
                     selectedVODPictureBox.Image = Properties.Resources.loadingIcon;
                 }
                 else
                 {
+                    //replace loading image with stream thumbnail
                     try
                     {
                         selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
@@ -85,39 +82,38 @@ namespace VOD_Downloader
                     catch (Exception e)
                     {
                         selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
-                    }
-                        
+                    }           
                 }
-
             });
 
             var updateMainForm = updateGUIThread as IProgress<Boolean>;
 
-                string x = "";
+                string videoQualityRawJSON = "";
 
-                var youtubeDL1 = new YoutubeDL();
-                youtubeDL1.StandardOutputEvent += (sender, output) => {
-                    Console.WriteLine(output);
-                    x = output;
+
+            var youtubeDL = new YoutubeDL()
+                {
+                    VideoUrl = _selectedVOD.url
                 };
-                youtubeDL1.StandardErrorEvent += (sender, errorOutput) => Console.WriteLine(errorOutput);
-                youtubeDL1.VideoUrl = _selectedVOD.url;
-                youtubeDL1.Options.VerbositySimulationOptions.DumpJson = true;
-                updateMainForm.Report(true);
-            //Only can do one json even at a time - downloads the json for video quality
-                await youtubeDL1.DownloadAsync();
+            youtubeDL.Options.VerbositySimulationOptions.DumpJson = true;
 
+            youtubeDL.StandardOutputEvent += (sender, output) => {
+                    Console.WriteLine(output);
+                    videoQualityRawJSON = output;
+                };
+            youtubeDL.StandardErrorEvent += (sender, errorOutput) => Console.WriteLine(errorOutput);
+
+            updateMainForm.Report(true);
             
-                data = JsonConvert.DeserializeObject<VideoQualityFormat>(x);
-                updateMainForm.Report(false);
+            //downloads the json for video quality
+            await youtubeDL.DownloadAsync();
+            
+            data = JsonConvert.DeserializeObject<VideoQualityFormat>(videoQualityRawJSON);
+            updateMainForm.Report(false);
         
             return data;
         }
-
-
-
-
-
+                          
 
         private void DownloadVOD()
         {
@@ -223,36 +219,24 @@ namespace VOD_Downloader
                                 if (timeIndex > 0)
                                 {
                                     Console.WriteLine(errorOutput.Substring(timeIndex + 5, 8));
-                                    Console.WriteLine();
-                                    Console.WriteLine();
-                                    Console.WriteLine();
                                     Console.WriteLine((double)downloadedDuration.TotalSeconds / (double)totalSeconds);
-                                    Console.WriteLine();
-                                    Console.WriteLine();
-                                    Console.WriteLine();
-
+                                    
 
                                     //((double)downloadedDuration.TotalSeconds / (double)totalSeconds) * 100))
-                                    UpdateGUIThreadLoading?.Report(false);
-                                    updateGUIThreadDownload?.Report((int)(((double)downloadedDuration.TotalSeconds / (double)totalSeconds) * 100));
+                                    UpdateGUIThreadLoading.Report(false);
+                                    updateGUIThreadDownload.Report((int)(((double)downloadedDuration.TotalSeconds / (double)totalSeconds) * 100));
                                 }
                             };
 
                             totalSeconds = VODDuration(_selectedVOD.duration);
-                            UpdateGUIThreadLoading?.Report(true);
+                            UpdateGUIThreadLoading.Report(true);
                             youtubeDL.Download();
 
                             Thread.Sleep(1000);
                             updateGUIThreadDownload?.Report(100);
 
-                            
-
-                            //MessageBox.Show("Done");
-
                         });
 
-                       
-                        
                     }
                     catch (Exception e)
                     {
@@ -271,7 +255,19 @@ namespace VOD_Downloader
         private int VODDuration(string duration)
         {
 
+            string matchHour = Regex.Match(duration, "[1-9]+h").Value.ToString().Replace("h","");
+            string matchMinute = Regex.Match(duration, "[1-9]+m").Value.ToString().Replace("m", "");
+            string matchSecond = Regex.Match(duration, "[1-9]+s").Value.ToString().Replace("s", "");
 
+            int hours = int.Parse(matchHour == "" ? "0" : matchHour);
+            int minutes = int.Parse(matchMinute == "" ? "0" : matchMinute);
+            int seconds = int.Parse(matchSecond == "" ? "0" : matchSecond);
+
+
+            return ((hours * 3600) + (minutes * 60) + (seconds));
+
+
+            /*
             int hourIndex = duration.IndexOf("h"); //1
             int minuteIndex = duration.IndexOf("m"); //0
             int secondIndex = duration.IndexOf("s"); //2
@@ -327,22 +323,18 @@ namespace VOD_Downloader
 
             Console.WriteLine((int.Parse(hours) * 3600) + (int.Parse(minutes) * 60) + int.Parse(seconds));
 
-            return ((int.Parse(hours) * 3600) + (int.Parse(minutes) * 60) + int.Parse(seconds));
+            return ((int.Parse(hours) * 3600) + (int.Parse(minutes) * 60) + int.Parse(seconds));*/
 
 
         }
 
-        private void DownloadStreamDownloadButton_Click_1(object sender, EventArgs e)
+        private void DownloadStreamDownloadButton_Click(object sender, EventArgs e)
         {
             VideoQuality videoQuality = _videoQualityFormats.VideoQualityList.Find(x => x.format == comboBox1.Text);
             //downloadQueue1.addToDownloadQueue(videoQuality, _selectedVOD);
             DownloadVOD();
         }
 
-        private void DownloadControl_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void ClearForm()
         {

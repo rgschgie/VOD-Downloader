@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.StreamerDataGridView = new System.Windows.Forms.DataGridView();
             this.SelectColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.StreamerPicture = new System.Windows.Forms.DataGridViewImageColumn();
             this.StreamerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,25 +37,26 @@
             this.ItemsPerPageComboBox = new System.Windows.Forms.ComboBox();
             this.ItemsPerPageLabel = new System.Windows.Forms.Label();
             this.ApplyButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StreamerDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // StreamerDataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StreamerDataGridView.AllowUserToAddRows = false;
+            this.StreamerDataGridView.AllowUserToDeleteRows = false;
+            this.StreamerDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.StreamerDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectColumn,
             this.StreamerPicture,
             this.StreamerName});
-            this.dataGridView1.Location = new System.Drawing.Point(27, 18);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 543);
-            this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick_1);
+            this.StreamerDataGridView.Location = new System.Drawing.Point(27, 18);
+            this.StreamerDataGridView.Name = "StreamerDataGridView";
+            this.StreamerDataGridView.ReadOnly = true;
+            this.StreamerDataGridView.RowTemplate.Height = 90;
+            this.StreamerDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.StreamerDataGridView.Size = new System.Drawing.Size(776, 543);
+            this.StreamerDataGridView.TabIndex = 1;
+            this.StreamerDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StreamerGridView_CellContentClick);
             // 
             // SelectColumn
             // 
@@ -147,10 +148,10 @@
             this.Controls.Add(this.ItemsPerPageComboBox);
             this.Controls.Add(this.PreviousButton);
             this.Controls.Add(this.NextButton);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.StreamerDataGridView);
             this.Name = "StreamerPickControl";
             this.Size = new System.Drawing.Size(1011, 622);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StreamerDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,7 +159,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView StreamerDataGridView;
         private System.Windows.Forms.DataGridViewButtonColumn SelectColumn;
         private System.Windows.Forms.DataGridViewImageColumn StreamerPicture;
         private System.Windows.Forms.DataGridViewTextBoxColumn StreamerName;

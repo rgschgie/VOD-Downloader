@@ -24,16 +24,8 @@ namespace VOD_Downloader
         public event EventHandler<SelectedItemEventArgs> ItemHasBeenSelected;
 
 
-        //[Description("Selected Streamer information"), Category("Data")]
-        //public UserInformation SelectedStreamer
-        //{
-            
-        //}
-
-
         private int _userID;
         private List<UserInformation> _followedStreamerInformation;
-        private UserInformation _selectedStreamer;
         Stack<string> _paginationStack = new Stack<string>();
         
 
@@ -46,104 +38,99 @@ namespace VOD_Downloader
         public void setupStreamerPickControl(int userID)
         {
             _userID = userID;
-
-            loadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID));
+            LoadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID));
         }
 
 
-        private void loadTabFollowedStreamers(UserFollowData followedStreamerObject)
+        private void LoadTabFollowedStreamers(UserFollowData followedStreamerObject)
         {
-
-            //get followed streamers object
-
-            dataGridView1.Rows.Clear();
-
-
+            SharedFunctions.ClearDataGridView(StreamerDataGridView);
             _paginationStack.Push(followedStreamerObject.pagination.cursor);
 
             string streamerLoginNames = "";
-            //Create first 20 followed URL Query
+            //Create followed streamer URL Query
             followedStreamerObject.Data.ForEach(streamerFollowed => streamerLoginNames = streamerLoginNames + streamerFollowed.to_id + "&id=");
-            //Cleaning up last "&login="
+            //Cleaning up last "&id="
             streamerLoginNames = streamerLoginNames.Substring(0, streamerLoginNames.Length - 3);
+
 
             UserDataInformation followedStreamersList = APICalls.GetStreamerInformation(streamerLoginNames);
             _followedStreamerInformation = followedStreamersList.User;
 
-            var addToDataGridView = new Progress<Tuple<string, Bitmap, string>>(value =>
+
+            var addToDataGridView = new Progress<StreamerDataGridViewValues>(value =>
             {
-                dataGridView1.Rows.Add(value.Item1, value.Item2, value.Item3);
+                StreamerDataGridView.Rows.Add(value.ButtonText, value.StreamerImage, value.StreamerName);
             });
+            var updateGUIThread = addToDataGridView as IProgress<StreamerDataGridViewValues>;
 
-            var updateGUIThread = addToDataGridView as IProgress<Tuple<string, Bitmap, string>>;
-
-            dataGridView1.RowTemplate.MinimumHeight = 90;
 
             Task.Run(() =>
                         {
                             followedStreamersList.User.ForEach(streamer =>
                             {
-
-                                WebRequest request = System.Net.WebRequest.Create(streamer.profile_image_url);
-                                WebResponse response = request.GetResponse();
-                                System.IO.Stream responseStream = response.GetResponseStream();
-                                Bitmap bitmap2 = new Bitmap(responseStream);
-
-                                updateGUIThread.Report(new Tuple<string, Bitmap, string>("Select", bitmap2, streamer.login));
+                                Bitmap bitmap = SharedFunctions.GetBitmapImage(streamer.profile_image_url);
+                                updateGUIThread.Report(new StreamerDataGridViewValues("Select", bitmap,streamer.login));
                             });
                         });
-            
         }
 
-        private void DataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void StreamerGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
-                _selectedStreamer = _followedStreamerInformation[e.RowIndex];
+                UserInformation selectedStreamer = _followedStreamerInformation[e.RowIndex];
 
                 ItemHasBeenSelected?.Invoke(this, new SelectedItemEventArgs
-                { SelectedChoice = _selectedStreamer });
+                { SelectedChoice = selectedStreamer });
             }
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            ClearDataGridView();
             string pagination = _paginationStack.Peek();
-            loadTabFollowedStreamers(APICalls.GetFollowedStreamersNext(_userID, pagination));
+            LoadTabFollowedStreamers(APICalls.GetFollowedStreamersNext(_userID, pagination));
             PreviousButton.Visible = true;
-        }
-
-        public void ClearDataGridView()
-        {
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
         }
 
         private void PreviousButton_Click(object sender, EventArgs e)
         {
-
-
-            ClearDataGridView();
             _paginationStack.Pop();
             _paginationStack.Pop();
             
             if(_paginationStack.Count == 0)
             {
-                loadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID));
+                LoadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID));
                 PreviousButton.Visible = false;
             }
             else
             {
                 string pagination = _paginationStack.Peek();
-                loadTabFollowedStreamers(APICalls.GetFollowedStreamersNext(_userID, pagination));
+                LoadTabFollowedStreamers(APICalls.GetFollowedStreamersNext(_userID, pagination));
             }
         }
 
         private void ApplyButton_Click(object sender, EventArgs e)
         {
             int numOfObjects = int.Parse(ItemsPerPageComboBox.Text);
-            loadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID, numOfObjects));
+            LoadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID, numOfObjects));
         }
+
+
+        struct StreamerDataGridViewValues
+        {
+            public string ButtonText;
+            public Bitmap StreamerImage;
+            public string StreamerName;
+
+            public StreamerDataGridViewValues(string buttonText, Bitmap streamerImage, string streamerName)
+            {
+                ButtonText = buttonText;
+                StreamerImage = streamerImage;
+                StreamerName = streamerName;
+            }
+        }
+
+
     }
 }

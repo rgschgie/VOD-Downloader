@@ -40,6 +40,9 @@
             this.selectedVODPictureBox = new System.Windows.Forms.PictureBox();
             this.VideoQualityLabel = new System.Windows.Forms.Label();
             this.DownloadNameLabel = new System.Windows.Forms.Label();
+            this.VideoTitleLabel = new System.Windows.Forms.Label();
+            this.CreadedDateLabel = new System.Windows.Forms.Label();
+            this.VideoLengthLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +85,7 @@
             this.DownloadStreamDownloadButton.TabIndex = 16;
             this.DownloadStreamDownloadButton.Text = "Download";
             this.DownloadStreamDownloadButton.UseVisualStyleBackColor = true;
-            this.DownloadStreamDownloadButton.Click += new System.EventHandler(this.DownloadStreamDownloadButton_Click_1);
+            this.DownloadStreamDownloadButton.Click += new System.EventHandler(this.DownloadStreamDownloadButton_Click);
             // 
             // FileNameTextBox
             // 
@@ -93,27 +96,27 @@
             // 
             // SizeLabel
             // 
-            this.SizeLabel.Location = new System.Drawing.Point(182, 287);
+            this.SizeLabel.Location = new System.Drawing.Point(267, 282);
             this.SizeLabel.Name = "SizeLabel";
-            this.SizeLabel.Size = new System.Drawing.Size(351, 17);
+            this.SizeLabel.Size = new System.Drawing.Size(264, 17);
             this.SizeLabel.TabIndex = 13;
-            this.SizeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SizeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CreatedLabel
             // 
-            this.CreatedLabel.Location = new System.Drawing.Point(182, 260);
+            this.CreatedLabel.Location = new System.Drawing.Point(266, 262);
             this.CreatedLabel.Name = "CreatedLabel";
-            this.CreatedLabel.Size = new System.Drawing.Size(351, 17);
+            this.CreatedLabel.Size = new System.Drawing.Size(264, 17);
             this.CreatedLabel.TabIndex = 12;
-            this.CreatedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CreatedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TitleLabel
             // 
-            this.TitleLabel.Location = new System.Drawing.Point(182, 233);
+            this.TitleLabel.Location = new System.Drawing.Point(266, 235);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(351, 17);
+            this.TitleLabel.Size = new System.Drawing.Size(264, 17);
             this.TitleLabel.TabIndex = 11;
-            this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // comboBox1
             // 
@@ -152,10 +155,40 @@
             this.DownloadNameLabel.TabIndex = 21;
             this.DownloadNameLabel.Text = "Download Name:";
             // 
+            // VideoTitleLabel
+            // 
+            this.VideoTitleLabel.AutoSize = true;
+            this.VideoTitleLabel.Location = new System.Drawing.Point(200, 235);
+            this.VideoTitleLabel.Name = "VideoTitleLabel";
+            this.VideoTitleLabel.Size = new System.Drawing.Size(60, 13);
+            this.VideoTitleLabel.TabIndex = 22;
+            this.VideoTitleLabel.Text = "Video Title:";
+            // 
+            // CreadedDateLabel
+            // 
+            this.CreadedDateLabel.AutoSize = true;
+            this.CreadedDateLabel.Location = new System.Drawing.Point(187, 262);
+            this.CreadedDateLabel.Name = "CreadedDateLabel";
+            this.CreadedDateLabel.Size = new System.Drawing.Size(73, 13);
+            this.CreadedDateLabel.TabIndex = 23;
+            this.CreadedDateLabel.Text = "Date Created:";
+            // 
+            // VideoLengthLabel
+            // 
+            this.VideoLengthLabel.AutoSize = true;
+            this.VideoLengthLabel.Location = new System.Drawing.Point(187, 286);
+            this.VideoLengthLabel.Name = "VideoLengthLabel";
+            this.VideoLengthLabel.Size = new System.Drawing.Size(73, 13);
+            this.VideoLengthLabel.TabIndex = 24;
+            this.VideoLengthLabel.Text = "Video Length:";
+            // 
             // DownloadControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.VideoLengthLabel);
+            this.Controls.Add(this.CreadedDateLabel);
+            this.Controls.Add(this.VideoTitleLabel);
             this.Controls.Add(this.DownloadNameLabel);
             this.Controls.Add(this.VideoQualityLabel);
             this.Controls.Add(this.pleaseWaitLabel);
@@ -170,7 +203,6 @@
             this.Controls.Add(this.selectedVODPictureBox);
             this.Name = "DownloadControl";
             this.Size = new System.Drawing.Size(776, 626);
-            this.Load += new System.EventHandler(this.DownloadControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -191,5 +223,8 @@
         private System.Windows.Forms.PictureBox selectedVODPictureBox;
         private System.Windows.Forms.Label VideoQualityLabel;
         private System.Windows.Forms.Label DownloadNameLabel;
+        private System.Windows.Forms.Label VideoTitleLabel;
+        private System.Windows.Forms.Label CreadedDateLabel;
+        private System.Windows.Forms.Label VideoLengthLabel;
     }
 }
