@@ -28,51 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pleaseWaitLabel = new System.Windows.Forms.Label();
-            this.PreparingToLoadLabel = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.DownloadStreamDownloadButton = new System.Windows.Forms.Button();
             this.FileNameTextBox = new System.Windows.Forms.TextBox();
             this.SizeLabel = new System.Windows.Forms.Label();
             this.CreatedLabel = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.VideoQualityComboBox = new System.Windows.Forms.ComboBox();
             this.selectedVODPictureBox = new System.Windows.Forms.PictureBox();
             this.VideoQualityLabel = new System.Windows.Forms.Label();
             this.DownloadNameLabel = new System.Windows.Forms.Label();
             this.VideoTitleLabel = new System.Windows.Forms.Label();
             this.CreadedDateLabel = new System.Windows.Forms.Label();
             this.VideoLengthLabel = new System.Windows.Forms.Label();
+            this.PickVideoQualityLabel = new System.Windows.Forms.Label();
+            this.LoadingPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadingPictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pleaseWaitLabel
-            // 
-            this.pleaseWaitLabel.AutoSize = true;
-            this.pleaseWaitLabel.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pleaseWaitLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.pleaseWaitLabel.Location = new System.Drawing.Point(264, 514);
-            this.pleaseWaitLabel.Name = "pleaseWaitLabel";
-            this.pleaseWaitLabel.Size = new System.Drawing.Size(151, 32);
-            this.pleaseWaitLabel.TabIndex = 19;
-            this.pleaseWaitLabel.Text = "please wait";
-            this.pleaseWaitLabel.Visible = false;
-            // 
-            // PreparingToLoadLabel
-            // 
-            this.PreparingToLoadLabel.AutoSize = true;
-            this.PreparingToLoadLabel.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PreparingToLoadLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.PreparingToLoadLabel.Location = new System.Drawing.Point(192, 472);
-            this.PreparingToLoadLabel.Name = "PreparingToLoadLabel";
-            this.PreparingToLoadLabel.Size = new System.Drawing.Size(297, 42);
-            this.PreparingToLoadLabel.TabIndex = 18;
-            this.PreparingToLoadLabel.Text = "Preparing to load";
-            this.PreparingToLoadLabel.Visible = false;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(13, 554);
+            this.progressBar1.Location = new System.Drawing.Point(13, 580);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(731, 23);
             this.progressBar1.TabIndex = 17;
@@ -96,7 +73,7 @@
             // 
             // SizeLabel
             // 
-            this.SizeLabel.Location = new System.Drawing.Point(267, 282);
+            this.SizeLabel.Location = new System.Drawing.Point(267, 281);
             this.SizeLabel.Name = "SizeLabel";
             this.SizeLabel.Size = new System.Drawing.Size(264, 17);
             this.SizeLabel.TabIndex = 13;
@@ -104,7 +81,7 @@
             // 
             // CreatedLabel
             // 
-            this.CreatedLabel.Location = new System.Drawing.Point(266, 262);
+            this.CreatedLabel.Location = new System.Drawing.Point(266, 258);
             this.CreatedLabel.Name = "CreatedLabel";
             this.CreatedLabel.Size = new System.Drawing.Size(264, 17);
             this.CreatedLabel.TabIndex = 12;
@@ -118,13 +95,13 @@
             this.TitleLabel.TabIndex = 11;
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // comboBox1
+            // VideoQualityComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(199, 336);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(334, 21);
-            this.comboBox1.TabIndex = 10;
+            this.VideoQualityComboBox.FormattingEnabled = true;
+            this.VideoQualityComboBox.Location = new System.Drawing.Point(199, 336);
+            this.VideoQualityComboBox.Name = "VideoQualityComboBox";
+            this.VideoQualityComboBox.Size = new System.Drawing.Size(334, 21);
+            this.VideoQualityComboBox.TabIndex = 10;
             // 
             // selectedVODPictureBox
             // 
@@ -167,7 +144,7 @@
             // CreadedDateLabel
             // 
             this.CreadedDateLabel.AutoSize = true;
-            this.CreadedDateLabel.Location = new System.Drawing.Point(187, 262);
+            this.CreadedDateLabel.Location = new System.Drawing.Point(187, 260);
             this.CreadedDateLabel.Name = "CreadedDateLabel";
             this.CreadedDateLabel.Size = new System.Drawing.Size(73, 13);
             this.CreadedDateLabel.TabIndex = 23;
@@ -176,55 +153,76 @@
             // VideoLengthLabel
             // 
             this.VideoLengthLabel.AutoSize = true;
-            this.VideoLengthLabel.Location = new System.Drawing.Point(187, 286);
+            this.VideoLengthLabel.Location = new System.Drawing.Point(187, 285);
             this.VideoLengthLabel.Name = "VideoLengthLabel";
             this.VideoLengthLabel.Size = new System.Drawing.Size(73, 13);
             this.VideoLengthLabel.TabIndex = 24;
             this.VideoLengthLabel.Text = "Video Length:";
             // 
+            // PickVideoQualityLabel
+            // 
+            this.PickVideoQualityLabel.AutoSize = true;
+            this.PickVideoQualityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PickVideoQualityLabel.ForeColor = System.Drawing.Color.Red;
+            this.PickVideoQualityLabel.Location = new System.Drawing.Point(280, 320);
+            this.PickVideoQualityLabel.Name = "PickVideoQualityLabel";
+            this.PickVideoQualityLabel.Size = new System.Drawing.Size(122, 13);
+            this.PickVideoQualityLabel.TabIndex = 25;
+            this.PickVideoQualityLabel.Text = "Pick a Video Quality";
+            this.PickVideoQualityLabel.Visible = false;
+            // 
+            // LoadingPictureBox
+            // 
+            this.LoadingPictureBox.Location = new System.Drawing.Point(243, 468);
+            this.LoadingPictureBox.Name = "LoadingPictureBox";
+            this.LoadingPictureBox.Size = new System.Drawing.Size(194, 106);
+            this.LoadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoadingPictureBox.TabIndex = 26;
+            this.LoadingPictureBox.TabStop = false;
+            // 
             // DownloadControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.LoadingPictureBox);
+            this.Controls.Add(this.PickVideoQualityLabel);
             this.Controls.Add(this.VideoLengthLabel);
             this.Controls.Add(this.CreadedDateLabel);
             this.Controls.Add(this.VideoTitleLabel);
             this.Controls.Add(this.DownloadNameLabel);
             this.Controls.Add(this.VideoQualityLabel);
-            this.Controls.Add(this.pleaseWaitLabel);
-            this.Controls.Add(this.PreparingToLoadLabel);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.DownloadStreamDownloadButton);
             this.Controls.Add(this.FileNameTextBox);
             this.Controls.Add(this.SizeLabel);
             this.Controls.Add(this.CreatedLabel);
             this.Controls.Add(this.TitleLabel);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.VideoQualityComboBox);
             this.Controls.Add(this.selectedVODPictureBox);
             this.Name = "DownloadControl";
             this.Size = new System.Drawing.Size(776, 626);
             ((System.ComponentModel.ISupportInitialize)(this.selectedVODPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadingPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label pleaseWaitLabel;
-        private System.Windows.Forms.Label PreparingToLoadLabel;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button DownloadStreamDownloadButton;
         private System.Windows.Forms.TextBox FileNameTextBox;
         private System.Windows.Forms.Label SizeLabel;
         private System.Windows.Forms.Label CreatedLabel;
         private System.Windows.Forms.Label TitleLabel;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox VideoQualityComboBox;
         private System.Windows.Forms.PictureBox selectedVODPictureBox;
         private System.Windows.Forms.Label VideoQualityLabel;
         private System.Windows.Forms.Label DownloadNameLabel;
         private System.Windows.Forms.Label VideoTitleLabel;
         private System.Windows.Forms.Label CreadedDateLabel;
         private System.Windows.Forms.Label VideoLengthLabel;
+        private System.Windows.Forms.Label PickVideoQualityLabel;
+        private System.Windows.Forms.PictureBox LoadingPictureBox;
     }
 }

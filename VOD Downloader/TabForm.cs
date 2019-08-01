@@ -33,6 +33,10 @@ namespace VOD_Downloader
             {
                 new UserNameForm().ShowDialog();
             }
+            if(!Properties.Settings.Default.isMpegLocation)
+            {
+                new MpegLocationForm().ShowDialog();
+            }
 
             if(Properties.Settings.Default.UserName.Any())
             { 

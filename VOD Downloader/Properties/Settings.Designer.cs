@@ -46,5 +46,29 @@ namespace VOD_Downloader.Properties {
                 this["isUserNameSet"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MpegLocation {
+            get {
+                return ((string)(this["MpegLocation"]));
+            }
+            set {
+                this["MpegLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isMpegLocation {
+            get {
+                return ((bool)(this["isMpegLocation"]));
+            }
+            set {
+                this["isMpegLocation"] = value;
+            }
+        }
     }
 }

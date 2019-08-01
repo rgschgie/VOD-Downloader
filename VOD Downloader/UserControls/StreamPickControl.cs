@@ -80,13 +80,14 @@ namespace VOD_Downloader
 
         }
 
+
         private VODMasterObject GetPastStreams()
         {
             return APICalls.GetStreams(_selectedStreamer.id, "highlight");
         }
         private VODMasterObject GetPastStreams(string beforeOrAfter, string pagination, string previousStreamType)
         {
-            return APICalls.GetStreams(_selectedStreamer.id, beforeOrAfter, pagination, "highlight");
+            return APICalls.GetStreams(_selectedStreamer.id, beforeOrAfter, pagination, previousStreamType);
         }
 
         private void StreamDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
