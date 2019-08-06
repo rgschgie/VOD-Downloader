@@ -19,7 +19,6 @@ namespace VOD_Downloader
     {
         
         private int _userID;
-        private string _userPictureURL;
 
 
         public TabForm()
@@ -27,6 +26,11 @@ namespace VOD_Downloader
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Load event that checks if there's a username and a FFmpeg path set and kicks off setting up StreamerPickControl Usercontrol
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TabForm_Load(object sender, EventArgs e)
         {
             if(!Properties.Settings.Default.isUserNameSet)
@@ -41,36 +45,50 @@ namespace VOD_Downloader
             if(Properties.Settings.Default.UserName.Any())
             { 
                 loadMainPageItems();
-                GetSelectedStreamer();
+                PickSelectedStreamer();
             }
         }
 
-
+        /// <summary>
+        /// Loads pictures and text and sets userID 
+        /// </summary>
         private void loadMainPageItems()
         {
             UserInformation userInformation = getUserInformation();
 
             _userID = userInformation.id;
-            _userPictureURL = userInformation.profile_image_url;
+            string userPictureURL = userInformation.profile_image_url;
 
-            userPictureBox.Load(_userPictureURL);
+            userPictureBox.Load(userPictureURL);
             userIdLinkLabel.Text = Properties.Settings.Default.UserName;
         }
 
-
-        private void GetSelectedStreamer()
+        /// <summary>
+        /// Sets up streamerPickControl 
+        /// </summary>
+        private void PickSelectedStreamer()
         {
             streamerPickControl1.setupStreamerPickControl(_userID);
             streamerPickControl1.ItemHasBeenSelected += StreamerPickControl1_ItemHasBeenSelected;
         }
 
+        /// <summary>
+        /// Event handler for streamerPickControl item clicked to move to next tab in the tabcontrol
+        /// and pass selected item through to next tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StreamerPickControl1_ItemHasBeenSelected(object sender, StreamerPickControl.SelectedItemEventArgs e)
         {
-            GetSelectedStream(e.SelectedChoice);
+            PickSelectedStream(e.SelectedChoice);
             Console.WriteLine(e.SelectedChoice.login);
             changeTab(TabDirection.Forward);
         }
 
+        /// <summary>
+        /// Gets the UserInformation for the Username in Properties.Settings UserName
+        /// </summary>
+        /// <returns>UserDataObject for the username in Properties.Settings UserName</returns>
         private UserInformation getUserInformation()
         {
 
@@ -78,29 +96,63 @@ namespace VOD_Downloader
             return userDataInformationObject.User[0];
         }
 
-        public void GetSelectedStream(UserInformation selectedStreamer)
+        /// <summary>
+        /// Sets up streamerPickControl 
+        /// </summary>
+        /// <param name="selectedStreamer">Streamer object to load past VODS</param>
+        public void PickSelectedStream(UserInformation selectedStreamer)
         {
             streamPickControl_Remake1.setupStreamPickControl(selectedStreamer);
             streamPickControl_Remake1.ItemHasBeenSelected += StreamPickControl_Remake1_ItemHasBeenSelected;
         }
 
+        /// <summary>
+        /// Event handler for StreamPickControl item clicked to move to next tab in the tabcontrol 
+        /// and pass selected item through to next tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StreamPickControl_Remake1_ItemHasBeenSelected(object sender, StreamPickControl_Remake.SelectedItemEventArgs e)
         {
             Console.WriteLine(e.SelectedChoice.title);
             changeTab(TabDirection.Forward);
             GenerateDownloadVODControl(e.SelectedChoice);
         }
+
         
+        /// <summary>
+        /// Sets up DownloadControl
+        /// </summary>
+        /// <param name="selectedVOD">SelectedVOD object to download</param>
         public void GenerateDownloadVODControl(VODObject selectedVOD)
         {
             downloadControl1.SetUpDownload(selectedVOD);
         }
 
+        /// <summary>
+        /// Button click event to change tabs backwards
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TabBackButton_Click(object sender, EventArgs e)
         {
             changeTab(TabDirection.Back);
         }
 
+        /// <summary>
+        /// Button click event to change tabs forward
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TabForwardButton_Click(object sender, EventArgs e)
+        {
+            changeTab(TabDirection.Forward);
+        }
+
+        /// <summary>
+        /// Handles logic for changing tabs forward or backwards
+        /// </summary>
+        /// <param name="tabDirection">Tabdirection Object forward or backwards</param>
         private void changeTab(TabDirection tabDirection)
         {
             switch (tabDirection)
@@ -123,7 +175,7 @@ namespace VOD_Downloader
                             break;
                         case 2:
                             break;
-                    }    
+                    }
                     break;
 
 
@@ -152,16 +204,16 @@ namespace VOD_Downloader
                     break;
 
                 default:
-                        break;
+                    break;
             }
 
         }
 
-        private void TabForwardButton_Click(object sender, EventArgs e)
-        {
-            changeTab(TabDirection.Forward);
-        }
-
+        /// <summary>
+        /// Linked label click event that opens a new UserNameForm to change Properties.Settings UserName
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Properties.Settings.Default.Reset();
@@ -169,7 +221,7 @@ namespace VOD_Downloader
             if (Properties.Settings.Default.UserName.Any())
             {
                 loadMainPageItems();
-                GetSelectedStreamer();
+                PickSelectedStreamer();
             }
         }
 
@@ -179,6 +231,11 @@ namespace VOD_Downloader
             Back
         }
 
+        /// <summary>
+        /// Linked label click event that opens to the Properties.Settings UserName twitch page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserIdLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://twitch.tv/" + userIdLinkLabel.Text);

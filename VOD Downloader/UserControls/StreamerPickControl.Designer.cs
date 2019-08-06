@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.StreamerDataGridView = new System.Windows.Forms.DataGridView();
-            this.SelectColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.StreamerPicture = new System.Windows.Forms.DataGridViewImageColumn();
-            this.StreamerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NextButton = new System.Windows.Forms.Button();
             this.PreviousButton = new System.Windows.Forms.Button();
             this.ItemsPerPageComboBox = new System.Windows.Forms.ComboBox();
             this.ItemsPerPageLabel = new System.Windows.Forms.Label();
             this.ApplyButton = new System.Windows.Forms.Button();
+            this.SelectColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.StreamerPicture = new System.Windows.Forms.DataGridViewImageColumn();
+            this.StreamerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.StreamerDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,30 +59,6 @@
             this.StreamerDataGridView.Size = new System.Drawing.Size(776, 543);
             this.StreamerDataGridView.TabIndex = 1;
             this.StreamerDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StreamerGridView_CellContentClick);
-            // 
-            // SelectColumn
-            // 
-            this.SelectColumn.HeaderText = "Select";
-            this.SelectColumn.Name = "SelectColumn";
-            this.SelectColumn.ReadOnly = true;
-            this.SelectColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SelectColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // StreamerPicture
-            // 
-            this.StreamerPicture.HeaderText = "Streamer Icon";
-            this.StreamerPicture.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.StreamerPicture.Name = "StreamerPicture";
-            this.StreamerPicture.ReadOnly = true;
-            this.StreamerPicture.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.StreamerPicture.Width = 200;
-            // 
-            // StreamerName
-            // 
-            this.StreamerName.HeaderText = "StreamerName";
-            this.StreamerName.Name = "StreamerName";
-            this.StreamerName.ReadOnly = true;
-            this.StreamerName.Width = 200;
             // 
             // NextButton
             // 
@@ -122,11 +100,11 @@
             // ItemsPerPageLabel
             // 
             this.ItemsPerPageLabel.AutoSize = true;
-            this.ItemsPerPageLabel.Location = new System.Drawing.Point(853, 49);
+            this.ItemsPerPageLabel.Location = new System.Drawing.Point(865, 49);
             this.ItemsPerPageLabel.Name = "ItemsPerPageLabel";
-            this.ItemsPerPageLabel.Size = new System.Drawing.Size(79, 13);
+            this.ItemsPerPageLabel.Size = new System.Drawing.Size(62, 13);
             this.ItemsPerPageLabel.TabIndex = 16;
-            this.ItemsPerPageLabel.Text = "Items Per Page";
+            this.ItemsPerPageLabel.Text = "Select First:";
             // 
             // ApplyButton
             // 
@@ -138,6 +116,35 @@
             this.ApplyButton.Text = "Apply";
             this.ApplyButton.UseVisualStyleBackColor = true;
             this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
+            // 
+            // SelectColumn
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SelectColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.SelectColumn.HeaderText = "Select";
+            this.SelectColumn.Name = "SelectColumn";
+            this.SelectColumn.ReadOnly = true;
+            this.SelectColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SelectColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // StreamerPicture
+            // 
+            this.StreamerPicture.HeaderText = "Streamer Icon";
+            this.StreamerPicture.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.StreamerPicture.Name = "StreamerPicture";
+            this.StreamerPicture.ReadOnly = true;
+            this.StreamerPicture.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.StreamerPicture.Width = 200;
+            // 
+            // StreamerName
+            // 
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StreamerName.DefaultCellStyle = dataGridViewCellStyle6;
+            this.StreamerName.HeaderText = "StreamerName";
+            this.StreamerName.Name = "StreamerName";
+            this.StreamerName.ReadOnly = true;
+            this.StreamerName.Width = 200;
             // 
             // StreamerPickControl
             // 
@@ -160,13 +167,13 @@
         #endregion
 
         private System.Windows.Forms.DataGridView StreamerDataGridView;
-        private System.Windows.Forms.DataGridViewButtonColumn SelectColumn;
-        private System.Windows.Forms.DataGridViewImageColumn StreamerPicture;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StreamerName;
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.Button PreviousButton;
         private System.Windows.Forms.ComboBox ItemsPerPageComboBox;
         private System.Windows.Forms.Label ItemsPerPageLabel;
         private System.Windows.Forms.Button ApplyButton;
+        private System.Windows.Forms.DataGridViewButtonColumn SelectColumn;
+        private System.Windows.Forms.DataGridViewImageColumn StreamerPicture;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StreamerName;
     }
 }

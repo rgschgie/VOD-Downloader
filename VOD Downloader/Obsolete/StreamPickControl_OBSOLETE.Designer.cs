@@ -1,6 +1,6 @@
 ﻿namespace VOD_Downloader
 {
-    partial class StreamPickControl
+    partial class StreamPickControl_OBSOLETE
     {
         /// <summary> 
         /// Required designer variable.

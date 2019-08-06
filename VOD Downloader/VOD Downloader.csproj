@@ -88,10 +88,10 @@
     <Compile Include="UserControls\DownloadControl.Designer.cs">
       <DependentUpon>DownloadControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadQueue.cs">
+    <Compile Include="Obsolete\DownloadQueue.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadQueue.Designer.cs">
+    <Compile Include="Obsolete\DownloadQueue.Designer.cs">
       <DependentUpon>DownloadQueue.cs</DependentUpon>
     </Compile>
     <Compile Include="Obsolete\DownloadStreamForm.cs">
@@ -132,11 +132,11 @@
     <Compile Include="UserControls\StreamPickControl.Designer.cs">
       <DependentUpon>StreamPickControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obsolete\StreamPickControl.cs">
+    <Compile Include="Obsolete\StreamPickControl_OBSOLETE.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Obsolete\StreamPickControl.Designer.cs">
-      <DependentUpon>StreamPickControl.cs</DependentUpon>
+    <Compile Include="Obsolete\StreamPickControl_OBSOLETE.Designer.cs">
+      <DependentUpon>StreamPickControl_OBSOLETE.cs</DependentUpon>
     </Compile>
     <Compile Include="TabForm.cs">
       <SubType>Form</SubType>
@@ -164,7 +164,7 @@
     <EmbeddedResource Include="UserControls\DownloadControl.resx">
       <DependentUpon>DownloadControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadQueue.resx">
+    <EmbeddedResource Include="Obsolete\DownloadQueue.resx">
       <DependentUpon>DownloadQueue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Obsolete\DownloadStreamForm.resx">
@@ -187,8 +187,8 @@
     <EmbeddedResource Include="UserControls\StreamPickControl.resx">
       <DependentUpon>StreamPickControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Obsolete\StreamPickControl.resx">
-      <DependentUpon>StreamPickControl.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\StreamPickControl_OBSOLETE.resx">
+      <DependentUpon>StreamPickControl_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabForm.resx">
       <DependentUpon>TabForm.cs</DependentUpon>

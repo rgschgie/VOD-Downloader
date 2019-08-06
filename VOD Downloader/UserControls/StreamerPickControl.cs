@@ -34,47 +34,75 @@ namespace VOD_Downloader
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userID"></param>
         public void setupStreamerPickControl(int userID)
         {
             _userID = userID;
             LoadTabFollowedStreamers(APICalls.GetFollowedStreamers(_userID));
         }
 
-
+        /// <summary>
+        /// Loads the first 20 followed streamers and inserts them into datagridview
+        /// </summary>
+        /// <param name="followedStreamerObject">Objects to insert into the datagridview</param>
         private void LoadTabFollowedStreamers(UserFollowData followedStreamerObject)
         {
-            SharedFunctions.ClearDataGridView(StreamerDataGridView);
-            _paginationStack.Push(followedStreamerObject.pagination.cursor);
-
-            string streamerLoginNames = "";
-            //Create followed streamer URL Query
-            followedStreamerObject.Data.ForEach(streamerFollowed => streamerLoginNames = streamerLoginNames + streamerFollowed.to_id + "&id=");
-            //Cleaning up last "&id="
-            streamerLoginNames = streamerLoginNames.Substring(0, streamerLoginNames.Length - 3);
-
-
-            UserDataInformation followedStreamersList = APICalls.GetStreamerInformation(streamerLoginNames);
-            _followedStreamerInformation = followedStreamersList.User;
-
-
+            //Iprogress to update GUI Thread
             var addToDataGridView = new Progress<StreamerDataGridViewValues>(value =>
             {
                 StreamerDataGridView.Rows.Add(value.ButtonText, value.StreamerImage, value.StreamerName);
             });
             var updateGUIThread = addToDataGridView as IProgress<StreamerDataGridViewValues>;
 
+            try
+            {
+                SharedFunctions.ClearDataGridView(StreamerDataGridView);
+                _paginationStack.Push(followedStreamerObject.pagination.cursor);
 
-            Task.Run(() =>
-                        {
-                            followedStreamersList.User.ForEach(streamer =>
-                            {
-                                Bitmap bitmap = SharedFunctions.GetBitmapImage(streamer.profile_image_url);
-                                updateGUIThread.Report(new StreamerDataGridViewValues("Select", bitmap,streamer.login));
-                            });
-                        });
+                string streamerLoginNames = "";
+                //Create followed streamer URL Query
+                followedStreamerObject.Data.ForEach(streamerFollowed => streamerLoginNames = streamerLoginNames + streamerFollowed.to_id + "&id=");
+                //Cleaning up last "&id="
+                streamerLoginNames = streamerLoginNames.Substring(0, streamerLoginNames.Length - 3);
+
+
+                UserDataInformation followedStreamersList = APICalls.GetStreamerInformation(streamerLoginNames);
+                _followedStreamerInformation = followedStreamersList.User;
+
+                Task.Run(() =>
+                {
+                    followedStreamersList.User.ForEach(streamer =>
+                    {
+                        Bitmap bitmap = SharedFunctions.GetBitmapImage(streamer.profile_image_url);
+                        updateGUIThread.Report(new StreamerDataGridViewValues("Select", bitmap, streamer.login));
+                    });
+                });
+            }
+            catch(ArgumentOutOfRangeException e)
+            {
+
+                updateGUIThread.Report(new StreamerDataGridViewValues("No More Streamers",Properties.Resources.RedX,
+                                                                        "Click Previous button to go back to streamers"));
+                Console.WriteLine(e.Message);
+            }
+            catch (NullReferenceException e)
+            {
+                updateGUIThread.Report(new StreamerDataGridViewValues("No More Streamers", Properties.Resources.RedX,
+                                                                       "Click Previous button to go back to streamers"));
+                Console.WriteLine(e.Message);
+            }
+           
         }
 
+        /// <summary>
+        /// Datagridview click event that processes the button click in the datagridview by 
+        /// invoking ItemHasBeenSelected event with the corresponding selectedStreamer object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StreamerGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
@@ -86,6 +114,11 @@ namespace VOD_Downloader
             }
         }
 
+        /// <summary>
+        /// Button click event that gets the next 20 followed streamers and loads them into the datagridview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextButton_Click(object sender, EventArgs e)
         {
             string pagination = _paginationStack.Peek();
@@ -93,6 +126,11 @@ namespace VOD_Downloader
             PreviousButton.Visible = true;
         }
 
+        /// <summary>
+        /// Button click event that gets the previous 20 followed streamers and loads them into the datagridview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PreviousButton_Click(object sender, EventArgs e)
         {
             _paginationStack.Pop();
@@ -110,6 +148,11 @@ namespace VOD_Downloader
             }
         }
 
+        /// <summary>
+        /// Button click event that fills the datagridview with criteria based in the combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ApplyButton_Click(object sender, EventArgs e)
         {
             int numOfObjects = int.Parse(ItemsPerPageComboBox.Text);

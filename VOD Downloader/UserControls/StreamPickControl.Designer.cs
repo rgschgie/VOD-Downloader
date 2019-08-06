@@ -28,15 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PreviousButton = new System.Windows.Forms.Button();
             this.NextButton = new System.Windows.Forms.Button();
             this.StreamDataGridView = new System.Windows.Forms.DataGridView();
-            this.DownloadButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.VODTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ThumbnailImage = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DescriptionText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedPeriodComboBox = new System.Windows.Forms.ComboBox();
             this.SortByComboBox = new System.Windows.Forms.ComboBox();
             this.ItemsPerPageComboBox = new System.Windows.Forms.ComboBox();
@@ -46,6 +43,10 @@
             this.ItemsPerPageLabel = new System.Windows.Forms.Label();
             this.VideoTypeLabel = new System.Windows.Forms.Label();
             this.ApplyButton = new System.Windows.Forms.Button();
+            this.DownloadButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.VODTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThumbnailImage = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DescriptionText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.StreamDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,38 +89,6 @@
             this.StreamDataGridView.Size = new System.Drawing.Size(757, 492);
             this.StreamDataGridView.TabIndex = 6;
             this.StreamDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StreamDataGridView_CellContentClick);
-            // 
-            // DownloadButton
-            // 
-            this.DownloadButton.HeaderText = "Download";
-            this.DownloadButton.Name = "DownloadButton";
-            this.DownloadButton.ReadOnly = true;
-            // 
-            // VODTitle
-            // 
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VODTitle.DefaultCellStyle = dataGridViewCellStyle3;
-            this.VODTitle.HeaderText = "Stream Title";
-            this.VODTitle.Name = "VODTitle";
-            this.VODTitle.ReadOnly = true;
-            this.VODTitle.Width = 200;
-            // 
-            // ThumbnailImage
-            // 
-            this.ThumbnailImage.HeaderText = "Stream Thumbnail";
-            this.ThumbnailImage.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.ThumbnailImage.Name = "ThumbnailImage";
-            this.ThumbnailImage.ReadOnly = true;
-            this.ThumbnailImage.Width = 200;
-            // 
-            // DescriptionText
-            // 
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DescriptionText.DefaultCellStyle = dataGridViewCellStyle4;
-            this.DescriptionText.HeaderText = "Description";
-            this.DescriptionText.Name = "DescriptionText";
-            this.DescriptionText.ReadOnly = true;
-            this.DescriptionText.Width = 200;
             // 
             // CreatedPeriodComboBox
             // 
@@ -228,6 +197,41 @@
             this.ApplyButton.Text = "Apply";
             this.ApplyButton.UseVisualStyleBackColor = true;
             this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
+            // 
+            // DownloadButton
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DownloadButton.DefaultCellStyle = dataGridViewCellStyle1;
+            this.DownloadButton.HeaderText = "Download";
+            this.DownloadButton.Name = "DownloadButton";
+            this.DownloadButton.ReadOnly = true;
+            // 
+            // VODTitle
+            // 
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VODTitle.DefaultCellStyle = dataGridViewCellStyle2;
+            this.VODTitle.HeaderText = "Stream Title";
+            this.VODTitle.Name = "VODTitle";
+            this.VODTitle.ReadOnly = true;
+            this.VODTitle.Width = 200;
+            // 
+            // ThumbnailImage
+            // 
+            this.ThumbnailImage.HeaderText = "Stream Thumbnail";
+            this.ThumbnailImage.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.ThumbnailImage.Name = "ThumbnailImage";
+            this.ThumbnailImage.ReadOnly = true;
+            this.ThumbnailImage.Width = 200;
+            // 
+            // DescriptionText
+            // 
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DescriptionText.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DescriptionText.HeaderText = "Description";
+            this.DescriptionText.Name = "DescriptionText";
+            this.DescriptionText.ReadOnly = true;
+            this.DescriptionText.Width = 200;
             // 
             // StreamPickControl_Remake
             // 

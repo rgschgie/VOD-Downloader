@@ -22,11 +22,21 @@ namespace VOD_Downloader
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Button click event that opens the website to downloaf FFmpeg
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://ffmpeg.zeranoe.com/builds/");
         }
 
+        /// <summary>
+        /// Button click event that opens file dialog to pick FFmpeg.exe path
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenFileButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -40,6 +50,11 @@ namespace VOD_Downloader
             FilePathTextBox.Text = openFileDialog.FileName;
         }
 
+        /// <summary>
+        /// Button click event that saves FFmpeg.exe path to Properties.Settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ApplyButton_Click(object sender, EventArgs e)
         {
             if(_fileName != null)

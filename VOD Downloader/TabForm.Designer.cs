@@ -32,7 +32,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.streamerPickControl1 = new VOD_Downloader.StreamerPickControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.streamPickControl_Remake1 = new VOD_Downloader.StreamPickControl_Remake();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.downloadControl1 = new VOD_Downloader.DownloadControl();
             this.userPictureBox = new System.Windows.Forms.PictureBox();
@@ -40,6 +39,7 @@
             this.TabForwardButton = new System.Windows.Forms.Button();
             this.ResetLinkLabel = new System.Windows.Forms.LinkLabel();
             this.userIdLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.streamPickControl_Remake1 = new VOD_Downloader.StreamPickControl_Remake();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -86,13 +86,6 @@
             this.tabPage5.Size = new System.Drawing.Size(991, 623);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Past Streams";
-            // 
-            // streamPickControl_Remake1
-            // 
-            this.streamPickControl_Remake1.Location = new System.Drawing.Point(16, 17);
-            this.streamPickControl_Remake1.Name = "streamPickControl_Remake1";
-            this.streamPickControl_Remake1.Size = new System.Drawing.Size(960, 595);
-            this.streamPickControl_Remake1.TabIndex = 0;
             // 
             // tabPage6
             // 
@@ -167,6 +160,13 @@
             this.userIdLinkLabel.Text = "Streamer Name";
             this.userIdLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UserIdLinkLabel_LinkClicked);
             // 
+            // streamPickControl_Remake1
+            // 
+            this.streamPickControl_Remake1.Location = new System.Drawing.Point(6, 6);
+            this.streamPickControl_Remake1.Name = "streamPickControl_Remake1";
+            this.streamPickControl_Remake1.Size = new System.Drawing.Size(963, 586);
+            this.streamPickControl_Remake1.TabIndex = 0;
+            // 
             // TabForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,11 +199,11 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private StreamerPickControl streamerPickControl1;
-        private StreamPickControl_Remake streamPickControl_Remake1;
         private DownloadControl downloadControl1;
         private System.Windows.Forms.Button TabBackButton;
         private System.Windows.Forms.Button TabForwardButton;
         private System.Windows.Forms.LinkLabel ResetLinkLabel;
         private System.Windows.Forms.LinkLabel userIdLinkLabel;
+        private StreamPickControl_Remake streamPickControl_Remake1;
     }
 }

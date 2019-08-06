@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace VOD_Downloader
 {
-    public partial class StreamPickControl : UserControl
+    public partial class StreamPickControl_OBSOLETE : UserControl
     {
 
         List<VODObject> _VODList;
@@ -29,7 +29,7 @@ namespace VOD_Downloader
         public event EventHandler<SelectedItemEventArgs> ItemHasBeenSelected;
 
 
-        public StreamPickControl()
+        public StreamPickControl_OBSOLETE()
         {
             InitializeComponent();
         }

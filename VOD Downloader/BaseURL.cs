@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace VOD_Downloader
 {
-
+    /// <summary>
+    /// Enum that has the twitch API calls as their descriptions 
+    /// </summary>
     public enum BaseURL
     {
         [Description("https://api.twitch.tv/helix/videos?")]
@@ -23,6 +25,11 @@ namespace VOD_Downloader
 
     public static class EnumExtensions
     {
+        /// <summary>
+        /// Takes an enum and returns the description of the enum
+        /// </summary>
+        /// <param name="value">BaseURL enum to get URL from</param>
+        /// <returns>Description of the enum</returns>
         public static string ToDescriptionString(this BaseURL value)
         {
             return  

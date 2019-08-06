@@ -27,6 +27,10 @@ namespace VOD_Downloader
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Loads the video quality values and sets the download object
+        /// </summary>
+        /// <param name="selectedVOD"></param>
         public void SetUpDownload(VODObject selectedVOD)
         {
             _selectedVOD = selectedVOD;
@@ -34,6 +38,9 @@ namespace VOD_Downloader
             populateComboBoxWithVideoFormats();
         }
 
+        /// <summary>
+        /// loads the video qualities and puts them in the VideoQualityComboBox
+        /// </summary>
         private void populateComboBoxWithVideoFormats()
         {
            
@@ -59,6 +66,11 @@ namespace VOD_Downloader
                 }
         }
 
+        /// <summary>
+        /// Gets the download links and creates the global VideoQualityFormats object
+        /// </summary>
+        /// <param name="url">VOD url</param>
+        /// <returns>Task that contains the VideoQualityObject for the URL</returns>
         private async Task<VideoQualityFormat> getVideoFormats(string url)
         {
             VideoQualityFormat data = null;
@@ -80,6 +92,7 @@ namespace VOD_Downloader
                     catch (Exception e)
                     {
                         selectedVODPictureBox.Load(_selectedVOD.thumbnail_url.Replace("%{width}", "300").Replace("%{height}", "300"));
+                        Console.WriteLine(e.Message);
                     }           
                 }
             });
@@ -91,7 +104,7 @@ namespace VOD_Downloader
 
             var youtubeDL = new YoutubeDL()
                 {
-                    VideoUrl = _selectedVOD.url
+                    VideoUrl = url
                 };
             youtubeDL.Options.VerbositySimulationOptions.DumpJson = true;
 
@@ -111,8 +124,10 @@ namespace VOD_Downloader
         
             return data;
         }
-                          
-
+                  
+        /// <summary>
+        /// Downloads the VOD at the selected video quality using FFmpeg
+        /// </summary>
         private void DownloadVOD()
         {
 
@@ -230,7 +245,11 @@ namespace VOD_Downloader
 
         }
 
-
+        /// <summary>
+        /// Opens a SaveFileDialog to get a filename/ save path for the video
+        /// </summary>
+        /// <param name="fileName">VOD name</param>
+        /// <returns>Filename/path to save video file</returns>
         private string getSavedFileName(string fileName)
         {
             SaveFileDialog savefileDialog = new SaveFileDialog()
@@ -245,7 +264,12 @@ namespace VOD_Downloader
 
             return savefileDialog.FileName;
         }
-
+        
+        /// <summary>
+        /// Gets the seconds the video has been downloaded in regards to the length of the video
+        /// </summary>
+        /// <param name="duration"></param>
+        /// <returns>Number of seconds of video downloaded</returns>
         private int VODDuration(string duration)
         {
             string matchHour = Regex.Match(duration, "[1-9]+h").Value.ToString().Replace("h","");
@@ -259,12 +283,20 @@ namespace VOD_Downloader
             return ((hours * 3600) + (minutes * 60) + (seconds));
         }
 
+        /// <summary>
+        /// Button click event to kick off downloading the video
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DownloadStreamDownloadButton_Click(object sender, EventArgs e)
         {
             VideoQuality videoQuality = _videoQualityFormats.VideoQualityList.Find(x => x.format == VideoQualityComboBox.Text);
             DownloadVOD();
         }
-
+        
+        /// <summary>
+        /// Clears the DownloadControl form
+        /// </summary>
         private void ClearForm()
         {
             LoadingPictureBox.InitialImage = null;
