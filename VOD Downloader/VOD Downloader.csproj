@@ -88,23 +88,23 @@
     <Compile Include="UserControls\DownloadControl.Designer.cs">
       <DependentUpon>DownloadControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obsolete\DownloadQueue.cs">
+    <Compile Include="Obsolete\DownloadQueue_OBSOLETE.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Obsolete\DownloadQueue.Designer.cs">
-      <DependentUpon>DownloadQueue.cs</DependentUpon>
+    <Compile Include="Obsolete\DownloadQueue_OBSOLETE.Designer.cs">
+      <DependentUpon>DownloadQueue_OBSOLETE.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obsolete\DownloadStreamForm.cs">
+    <Compile Include="Obsolete\DownloadStreamForm_OBSOLETE.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Obsolete\DownloadStreamForm.Designer.cs">
-      <DependentUpon>DownloadStreamForm.cs</DependentUpon>
+    <Compile Include="Obsolete\DownloadStreamForm_OBSOLETE.Designer.cs">
+      <DependentUpon>DownloadStreamForm_OBSOLETE.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obsolete\frmMain.cs">
+    <Compile Include="Obsolete\frmMain_OBSOLETE.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Obsolete\frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="Obsolete\frmMain_OBSOLETE.Designer.cs">
+      <DependentUpon>frmMain_OBSOLETE.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,11 +113,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Obsolete\StreamerForm.cs">
+    <Compile Include="Obsolete\StreamerForm_OBSOLETE.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Obsolete\StreamerForm.Designer.cs">
-      <DependentUpon>StreamerForm.cs</DependentUpon>
+    <Compile Include="Obsolete\StreamerForm_OBSOLETE.Designer.cs">
+      <DependentUpon>StreamerForm_OBSOLETE.cs</DependentUpon>
     </Compile>
     <Compile Include="SharedFunctions.cs" />
     <Compile Include="UserControls\StreamerPickControl.cs">
@@ -144,10 +144,10 @@
     <Compile Include="TabForm.Designer.cs">
       <DependentUpon>TabForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obsolete\UserDataInformation.cs" />
+    <Compile Include="Obsolete\UserDataInformation_OBSOLETE.cs" />
     <Compile Include="Models\UserFollow.cs" />
-    <Compile Include="Obsolete\UserFollowData.cs" />
-    <Compile Include="Obsolete\UserFollowPagination.cs" />
+    <Compile Include="Obsolete\UserFollowData_OBSOLETE.cs" />
+    <Compile Include="Obsolete\UserFollowPagination_OBSOLETE.cs" />
     <Compile Include="Models\UserInformation.cs" />
     <Compile Include="UserNameForm.cs">
       <SubType>Form</SubType>
@@ -156,7 +156,7 @@
       <DependentUpon>UserNameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\VideoQuality.cs" />
-    <Compile Include="Obsolete\VODMasterObject.cs" />
+    <Compile Include="Obsolete\VODMasterObject_OBSOLETE.cs" />
     <Compile Include="Models\VODObject.cs" />
     <EmbeddedResource Include="MpegLocationForm.resx">
       <DependentUpon>MpegLocationForm.cs</DependentUpon>
@@ -164,22 +164,22 @@
     <EmbeddedResource Include="UserControls\DownloadControl.resx">
       <DependentUpon>DownloadControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Obsolete\DownloadQueue.resx">
-      <DependentUpon>DownloadQueue.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\DownloadQueue_OBSOLETE.resx">
+      <DependentUpon>DownloadQueue_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Obsolete\DownloadStreamForm.resx">
-      <DependentUpon>DownloadStreamForm.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\DownloadStreamForm_OBSOLETE.resx">
+      <DependentUpon>DownloadStreamForm_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Obsolete\frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\frmMain_OBSOLETE.resx">
+      <DependentUpon>frmMain_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Obsolete\StreamerForm.resx">
-      <DependentUpon>StreamerForm.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\StreamerForm_OBSOLETE.resx">
+      <DependentUpon>StreamerForm_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\StreamerPickControl.resx">
       <DependentUpon>StreamerPickControl.cs</DependentUpon>
