@@ -10,27 +10,97 @@ namespace VOD_Downloader
 {
     public static class APICalls
     {
-        public static VODMasterObject GetPreviousStreams(int streamerID, string previousStreamType = "highlight")
+        /// <summary>
+        /// Get VODMasterObject of VOD(video) data
+        /// </summary>
+        /// <param name="streamerID">ID of the user who owns the video</param>
+        /// <param name="previousStreamType">Highlight, archive, upload or all</param>
+        /// <returns>VODMasterObject that contains VOD data</returns>
+        public static VODMasterObject GetStreams(int streamerID, string previousStreamType = "highlight")
         {
-            return APICall<VODMasterObject, int>(BaseURL.PastStreamsURL, "user_id=", streamerID, "&type=", previousStreamType);
+            return APICall<VODMasterObject>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID.ToString(), "&type=", previousStreamType);
         }
 
+        /// <summary>
+        /// Get VODMasterObject of VOD(video) data
+        /// </summary>
+        /// <param name="streamerID">ID of the user who owns the video</param>
+        /// <param name="previousStreamType">Highlight, archive, upload or all</param>
+        /// <param name="period">Period during which the video was created</param>
+        /// <param name="sort">Sort order of the videos. Valid values: "time", "trending", "views"</param>
+        /// <param name="first">Maximum number of objects to return</param>
+        /// <returns>VODMasterObject that contains VOD data</returns>
+        public static VODMasterObject GetStreams(int streamerID, string previousStreamType, string period, string sort, int first)
+        {
+            return APICall<VODMasterObject>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID.ToString(), "&type=", previousStreamType, "&period=",period,"&sort=",sort,"&first=",first.ToString());
+        }
+
+        /// <summary>
+        /// Get VODMasterObject of VOD(video) data
+        /// </summary>
+        /// <param name="streamerID">ID of the user who owns the video</param>
+        /// <param name="beforeOrAfter">Cursor for forward or backwards pagination</param>
+        /// <param name="pagination">A cursor value, to be used in a subsequent 
+        /// request to specify the starting point of the next set of results.</param>
+        /// <param name="previousStreamType"></param>
+        /// <returns>VODMasterObject that contains VOD data</returns>
+        public static VODMasterObject GetStreams(int streamerID, string beforeOrAfter, string pagination, string previousStreamType = "highlight")
+        {
+            return APICall<VODMasterObject>(BaseURL.PastStreamURL.ToDescriptionString(), "user_id=", streamerID.ToString(), "&type=", previousStreamType, beforeOrAfter, pagination);
+        }
+
+        /// <summary>
+        /// Get VODMasterObject of VOD(video) data
+        /// </summary>
+        /// <param name="streamerID">ID of the user who owns the video</param>
+        /// <param name="numOfObjects">Maximum number of objects to return</param>
+        /// <returns>UserDataInformation object with a list of UserInformation</returns>
+        public static UserFollowData GetFollowedStreamers(int streamerID, int numOfObjects)
+        {
+            return APICall<UserFollowData>(BaseURL.FollowedStreamersURL.ToDescriptionString(), "from_id=", streamerID.ToString(),"&first=",numOfObjects.ToString());
+        }
+
+        /// <summary>
+        /// Get next UserFollowData object of followed users
+        /// </summary>
+        /// <param name="streamerID">ID of the user to get followed users</param>
+        /// <param name="pagination">A cursor value, to be used in a subsequent 
+        /// request to specify the starting point of the next set of results.</param>
+        /// <returns>UserDataInformation object with a list of UserInformation</returns>
+        public static UserFollowData GetFollowedStreamersNext(int streamerID, string pagination)
+        {
+            return APICall<UserFollowData>(BaseURL.FollowedStreamersURL.ToDescriptionString(), "from_id=", streamerID.ToString(), "&after=",pagination);
+        }
+
+        /// <summary>
+        /// Get UserFollowData object of followed users
+        /// </summary>
+        /// <param name="streamerID">ID of the user to get followed users</param>
+        /// <returns>UserDataInformation object with a list of UserInformation</returns>
         public static UserFollowData GetFollowedStreamers(int streamerID)
         {
-            return APICall<UserFollowData, int>(BaseURL.FollowedStreamersURL, "from_id=", streamerID);
+            return APICall<UserFollowData>(BaseURL.FollowedStreamersURL.ToDescriptionString(), "from_id=", streamerID.ToString());
         }
 
         /// <summary>
         /// Gets streamer info (such as user ID, login name, profile picture, etc)
         /// </summary>
-        /// <param name="username">Streamer username, can be chained with multiple usernames using "&login=" </param>
+        /// <param name="username">Streamer username, using "&login=" </param>
         /// <returns>UserDataInformation object with a list of UserInformation</returns>
         public static  UserDataInformation GetStreamerInformation(string username)
         {
-            return APICall<UserDataInformation, string>(BaseURL.UserAccountURL, "login=", username);
+            return APICall<UserDataInformation>(BaseURL.UserAccountURL.ToDescriptionString(), "login=", username);
         }
+           
 
-        private static T APICall<T, U>(BaseURL baseURL, string paramaterQueryNameOne, U paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
+
+        /// <summary>
+        /// Constructs and runs a query on the twitch API and binds it to object T
+        /// </summary>
+        /// <typeparam name="T">Object to be binded and returned</typeparam>
+        /// <param name="list">API query arguments</param>
+        /// <returns>Object T</returns>
+        private static T APICall<T>(params object[] list)
         {
             
             T returnInformation = default(T);
@@ -38,8 +108,16 @@ namespace VOD_Downloader
             {
                 using (var httpClient = new HttpClient())
                 {
-                    Console.WriteLine(string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo));
-                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo)))
+                    string queryString = "";
+
+                    
+                    //builds api call
+                    foreach (string query in list)
+                    {
+                        queryString = String.Format("{0}{1}",queryString,query.ToString());
+                    }
+
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}",queryString)))
                     {
                         request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
                         HttpResponseMessage response = httpClient.SendAsync(request).Result;
@@ -57,119 +135,6 @@ namespace VOD_Downloader
 
         
         }
-
-
-        /*  private static async Task<T> APICall<T>(BaseURL baseURL, string paramaterQueryNameOne, string paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
-          {
-              T returnInformation;
-              using (var httpClient = new HttpClient())
-              {
-                  Console.WriteLine(string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo));
-                  using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo)))
-                  {
-
-
-                      request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
-                      var response = await httpClient.SendAsync(request);
-                      T data = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
-                      returnInformation = data;
-                  }
-              }
-              return returnInformation;
-          }
-
-          private static async Task<T> APICall<T>(BaseURL baseURL, string paramaterQueryNameOne, int paramterValueOne, string paramaterQueryNameTwo = "", string parameterValueTwo = "")
-          {
-              T returnInformation;
-              using (var httpClient = new HttpClient())
-              {
-                  Console.WriteLine(string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo));
-                  using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}{1}{2}{3}{4}", baseURL.Value, paramaterQueryNameOne, paramterValueOne, paramaterQueryNameTwo, parameterValueTwo)))
-                  {
-
-
-                      request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
-                      var response = await httpClient.SendAsync(request);
-                      T data = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
-                      returnInformation = data;
-                  }
-              }
-              return returnInformation;
-          }
-          */
-
-
-
-
-        /*public static async Task<T> GetStreamerInformation<T>(string username)
-        {
-            T userInformation;
-            using (var httpClient = new HttpClient())
-            {
-                using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}login={1}", BaseURL.UserAccountURL.Value, username)))
-                {
-                    request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
-                    var response = await httpClient.SendAsync(request);
-                    T data = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
-                    userInformation = data;
-                }
-            }
-            return userInformation;
-        }*/
-
-
-        //public static async Task<T> ExecuteAPICall<T>()
-        //{
-        //    T VODMaster;
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        //StreamerInformation.id
-        //        using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("{0}user_id={1}&type=highlight", previousStreamURL, streamerID)))
-        //        {
-        //            request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
-        //            var response = await httpClient.SendAsync(request);
-        //            T data = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
-        //            VODMaster = data;
-        //        }
-        //    }
-        //    //Console.WriteLine(str);
-        //    return VODMaster;
-        //}
-
-
-        //https://api.twitch.tv/helix/videos?user_id={0}&type=highlight
-        //https://api.twitch.tv/helix/users?id={0}
-        //https://api.twitch.tv/helix/users/follows?from_id={0}&first=20
-        //https://api.twitch.tv/helix/users/follows?from_id={0}&after={1}
-        //https://api.twitch.tv/helix/users?login={0}
-        //
-        //
-        //
-        //
-        //
-        //
-
-
-
-        //pagination
-        /*using (var request = new HttpRequestMessage(new HttpMethod("GET"), string.Format("https://api.twitch.tv/helix/users/follows?from_id={0}&after={1}", twitchUserID,pagination)))
-                    {
-                        request.Headers.TryAddWithoutValidation("Client-ID", "axjrc6j57ai3i1hzkvb2gou1mxwp94");
-
-                        var response = await httpClient.SendAsync(request);
-                        UserFollowData data = JsonConvert.DeserializeObject<UserFollowData>(response.Content.ReadAsStringAsync().Result);
-
-
-
-                        dynamic parsedJson = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
-                        //Console.WriteLine(parsedJson);
-
-
-                        foreach (var item in data.data)
-                        {
-                            Console.WriteLine(item.to_name);
-                        }
-                    }*/
 
     }
 }

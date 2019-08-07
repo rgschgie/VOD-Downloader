@@ -39,7 +39,7 @@ namespace VOD_Downloader
 
         private VODMasterObject getPastStreams()
         {
-            return APICalls.GetPreviousStreams(StreamerInformation.id,"archive");
+            return APICalls.GetStreams(StreamerInformation.id,"highlight");
         }
 
 

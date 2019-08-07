@@ -58,6 +58,9 @@
     <Reference Include="NYoutubeDL, Version=0.10.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NYoutubeDL.0.10.5\lib\netstandard2.0\NYoutubeDL.dll</HintPath>
     </Reference>
+    <Reference Include="Syroot.KnownFolders, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syroot.Windows.IO.KnownFolders.1.2.1\lib\net452\Syroot.KnownFolders.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -73,29 +76,35 @@
   <ItemGroup>
     <Compile Include="APICalls.cs" />
     <Compile Include="BaseURL.cs" />
-    <Compile Include="DownloadControl.cs">
+    <Compile Include="MpegLocationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MpegLocationForm.Designer.cs">
+      <DependentUpon>MpegLocationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DownloadControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadControl.Designer.cs">
+    <Compile Include="UserControls\DownloadControl.Designer.cs">
       <DependentUpon>DownloadControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadQueue.cs">
+    <Compile Include="Obsolete\DownloadQueue_OBSOLETE.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadQueue.Designer.cs">
-      <DependentUpon>DownloadQueue.cs</DependentUpon>
+    <Compile Include="Obsolete\DownloadQueue_OBSOLETE.Designer.cs">
+      <DependentUpon>DownloadQueue_OBSOLETE.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadStreamForm.cs">
+    <Compile Include="Obsolete\DownloadStreamForm_OBSOLETE.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadStreamForm.Designer.cs">
-      <DependentUpon>DownloadStreamForm.cs</DependentUpon>
+    <Compile Include="Obsolete\DownloadStreamForm_OBSOLETE.Designer.cs">
+      <DependentUpon>DownloadStreamForm_OBSOLETE.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="Obsolete\frmMain_OBSOLETE.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="Obsolete\frmMain_OBSOLETE.Designer.cs">
+      <DependentUpon>frmMain_OBSOLETE.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,23 +113,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StreamerForm.cs">
+    <Compile Include="Obsolete\StreamerForm_OBSOLETE.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StreamerForm.Designer.cs">
-      <DependentUpon>StreamerForm.cs</DependentUpon>
+    <Compile Include="Obsolete\StreamerForm_OBSOLETE.Designer.cs">
+      <DependentUpon>StreamerForm_OBSOLETE.cs</DependentUpon>
     </Compile>
-    <Compile Include="StreamerPickControl.cs">
+    <Compile Include="SharedFunctions.cs" />
+    <Compile Include="UserControls\StreamerPickControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StreamerPickControl.Designer.cs">
+    <Compile Include="UserControls\StreamerPickControl.Designer.cs">
       <DependentUpon>StreamerPickControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="StreamPickControl.cs">
+    <Compile Include="UserControls\StreamPickControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StreamPickControl.Designer.cs">
+    <Compile Include="UserControls\StreamPickControl.Designer.cs">
       <DependentUpon>StreamPickControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Obsolete\StreamPickControl_OBSOLETE.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Obsolete\StreamPickControl_OBSOLETE.Designer.cs">
+      <DependentUpon>StreamPickControl_OBSOLETE.cs</DependentUpon>
     </Compile>
     <Compile Include="TabForm.cs">
       <SubType>Form</SubType>
@@ -128,42 +144,57 @@
     <Compile Include="TabForm.Designer.cs">
       <DependentUpon>TabForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserDataInformation.cs" />
-    <Compile Include="UserFollow.cs" />
-    <Compile Include="UserFollowData.cs" />
-    <Compile Include="UserFollowPagination.cs" />
-    <Compile Include="UserInformation.cs" />
-    <Compile Include="VideoQuality.cs" />
-    <Compile Include="VODMasterObject.cs" />
-    <Compile Include="VODObject.cs" />
-    <EmbeddedResource Include="DownloadControl.resx">
+    <Compile Include="Obsolete\UserDataInformation_OBSOLETE.cs" />
+    <Compile Include="Models\UserFollow.cs" />
+    <Compile Include="Obsolete\UserFollowData_OBSOLETE.cs" />
+    <Compile Include="Obsolete\UserFollowPagination_OBSOLETE.cs" />
+    <Compile Include="Models\UserInformation.cs" />
+    <Compile Include="UserNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserNameForm.Designer.cs">
+      <DependentUpon>UserNameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VideoQuality.cs" />
+    <Compile Include="Obsolete\VODMasterObject_OBSOLETE.cs" />
+    <Compile Include="Models\VODObject.cs" />
+    <EmbeddedResource Include="MpegLocationForm.resx">
+      <DependentUpon>MpegLocationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\DownloadControl.resx">
       <DependentUpon>DownloadControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadQueue.resx">
-      <DependentUpon>DownloadQueue.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\DownloadQueue_OBSOLETE.resx">
+      <DependentUpon>DownloadQueue_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadStreamForm.resx">
-      <DependentUpon>DownloadStreamForm.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\DownloadStreamForm_OBSOLETE.resx">
+      <DependentUpon>DownloadStreamForm_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\frmMain_OBSOLETE.resx">
+      <DependentUpon>frmMain_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="StreamerForm.resx">
-      <DependentUpon>StreamerForm.cs</DependentUpon>
+    <EmbeddedResource Include="Obsolete\StreamerForm_OBSOLETE.resx">
+      <DependentUpon>StreamerForm_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StreamerPickControl.resx">
+    <EmbeddedResource Include="UserControls\StreamerPickControl.resx">
       <DependentUpon>StreamerPickControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StreamPickControl.resx">
+    <EmbeddedResource Include="UserControls\StreamPickControl.resx">
       <DependentUpon>StreamPickControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Obsolete\StreamPickControl_OBSOLETE.resx">
+      <DependentUpon>StreamPickControl_OBSOLETE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabForm.resx">
       <DependentUpon>TabForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserNameForm.resx">
+      <DependentUpon>UserNameForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -183,7 +214,9 @@
     <None Include="Resources\loadingIcon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="loadingIcon.gif" />
+    <None Include="Resources\GreenCheck.png" />
+    <None Include="Resources\RedX.png" />
+    <None Include="Resources\replacementIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -196,6 +229,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadingIcon.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

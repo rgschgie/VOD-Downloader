@@ -7,6 +7,20 @@ using System.Threading.Tasks;
 
 namespace VOD_Downloader
 {
+
+    public class UserFollowData
+    {
+        [JsonProperty(PropertyName = "total")]
+        public int total { get; set; }
+
+        [JsonProperty(PropertyName = "data")]
+        public List<UserFollow> Data { get; set; }
+
+        [JsonProperty(PropertyName = "pagination")]
+        public UserFollowPagination pagination { get; set; }
+    }
+
+
     public class UserFollow
     {
         [JsonProperty(PropertyName = "from_id")]
@@ -23,8 +37,11 @@ namespace VOD_Downloader
 
         [JsonProperty(PropertyName = "followed_at")]
         public DateTime followed_at { get; set; }
+    }
 
-
-
+    public class UserFollowPagination
+    {
+        [JsonProperty(PropertyName = "cursor")]
+        public string cursor { get; set; }
     }
 }

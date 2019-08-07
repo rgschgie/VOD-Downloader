@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VOD_Downloader
 {
-    public class UserFollowData
+    public class UserFollowDataObsolete
     {
 
         [JsonProperty(PropertyName = "total")]

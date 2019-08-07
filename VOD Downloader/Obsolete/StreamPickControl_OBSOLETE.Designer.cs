@@ -1,6 +1,6 @@
 ﻿namespace VOD_Downloader
 {
-    partial class StreamPickControl
+    partial class StreamPickControl_OBSOLETE
     {
         /// <summary> 
         /// Required designer variable.
@@ -33,6 +33,8 @@
             this.VODTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThumbnailImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.DescriptionText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PreviousButton = new System.Windows.Forms.Button();
+            this.NextButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,10 +81,33 @@
             this.DescriptionText.ReadOnly = true;
             this.DescriptionText.Width = 200;
             // 
+            // PreviousButton
+            // 
+            this.PreviousButton.Location = new System.Drawing.Point(23, 532);
+            this.PreviousButton.Name = "PreviousButton";
+            this.PreviousButton.Size = new System.Drawing.Size(122, 23);
+            this.PreviousButton.TabIndex = 5;
+            this.PreviousButton.Text = "< Previous";
+            this.PreviousButton.UseVisualStyleBackColor = true;
+            this.PreviousButton.Visible = false;
+            this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
+            // 
+            // NextButton
+            // 
+            this.NextButton.Location = new System.Drawing.Point(658, 532);
+            this.NextButton.Name = "NextButton";
+            this.NextButton.Size = new System.Drawing.Size(122, 23);
+            this.NextButton.TabIndex = 4;
+            this.NextButton.Text = "Next >";
+            this.NextButton.UseVisualStyleBackColor = true;
+            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
+            // 
             // StreamPickControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.PreviousButton);
+            this.Controls.Add(this.NextButton);
             this.Controls.Add(this.dataGridView2);
             this.Name = "StreamPickControl";
             this.Size = new System.Drawing.Size(865, 593);
@@ -98,5 +123,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn VODTitle;
         private System.Windows.Forms.DataGridViewImageColumn ThumbnailImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionText;
+        private System.Windows.Forms.Button PreviousButton;
+        private System.Windows.Forms.Button NextButton;
     }
 }

@@ -1,27 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace VOD_Downloader
 {
-    public class BaseURL
+    /// <summary>
+    /// Enum that has the twitch API calls as their descriptions 
+    /// </summary>
+    public enum BaseURL
     {
+        [Description("https://api.twitch.tv/helix/videos?")]
+        PastStreamURL,
 
-        private BaseURL(string value) { Value = value;  }
+        [Description("https://api.twitch.tv/helix/users/follows?")]
+        FollowedStreamersURL,
 
-        public string Value { get; set; }
-
-
-        public static BaseURL PastStreamsURL{get {return new BaseURL("https://api.twitch.tv/helix/videos?");}}
-        public static BaseURL FollowedStreamersURL { get { return new BaseURL("https://api.twitch.tv/helix/users/follows?"); } }
-        public static BaseURL UserAccountURL { get { return new BaseURL("https://api.twitch.tv/helix/users?"); } }
-
-        public static BaseURL UserIDParam (int userID) {{ return new BaseURL(String.Format("user_id={0}",userID)); }}
-
-        public static BaseURL FollowFromIDParam(int userID) { { return new BaseURL(String.Format("from_id={0}", userID)); } }
-
-
+        [Description("https://api.twitch.tv/helix/users?")]
+        UserAccountURL
     }
+
+    public static class EnumExtensions
+    {
+        /// <summary>
+        /// Takes an enum and returns the description of the enum
+        /// </summary>
+        /// <param name="value">BaseURL enum to get URL from</param>
+        /// <returns>Description of the enum</returns>
+        public static string ToDescriptionString(this BaseURL value)
+        {
+            return  
+                value.GetType()
+                .GetMember(value.ToString())
+                .FirstOrDefault()
+                ?.GetCustomAttribute<DescriptionAttribute>()
+                ?.Description
+                    ?? value.ToString();
+        }
+    }
+
 }

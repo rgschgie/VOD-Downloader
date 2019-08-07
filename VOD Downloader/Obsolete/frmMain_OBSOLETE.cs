@@ -95,7 +95,7 @@ namespace VOD_Downloader
         /// <returns></returns>
         private async Task<int> getUserID(string username)
         {
-            UserDataInformation userDataInformationObject =  APICalls.GetStreamerInformation(username);
+            UserDataInformation userDataInformationObject = APICalls.GetStreamerInformation(username);
             return userDataInformationObject.User[0].id;
         }
 
