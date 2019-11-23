@@ -12,7 +12,7 @@ namespace VOD_Downloader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -62,12 +62,36 @@ namespace VOD_Downloader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isMpegLocation {
+        public bool isMpegLocationSet {
             get {
-                return ((bool)(this["isMpegLocation"]));
+                return ((bool)(this["isMpegLocationSet"]));
             }
             set {
-                this["isMpegLocation"] = value;
+                this["isMpegLocationSet"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isYoutubeDLSet {
+            get {
+                return ((bool)(this["isYoutubeDLSet"]));
+            }
+            set {
+                this["isYoutubeDLSet"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string YoutubeDLLocation {
+            get {
+                return ((string)(this["YoutubeDLLocation"]));
+            }
+            set {
+                this["YoutubeDLLocation"] = value;
             }
         }
     }

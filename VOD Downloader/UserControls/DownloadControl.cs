@@ -103,9 +103,11 @@ namespace VOD_Downloader
 
 
             var youtubeDL = new YoutubeDL()
-                {
-                    VideoUrl = url
-                };
+            {
+                VideoUrl = url,
+                YoutubeDlPath = Properties.Settings.Default.YoutubeDLLocation
+            };
+
             youtubeDL.Options.VerbositySimulationOptions.DumpJson = true;
 
             youtubeDL.StandardOutputEvent += (sender, output) => {
@@ -177,7 +179,8 @@ namespace VOD_Downloader
 
                     YoutubeDL youtubeDL = new YoutubeDL()
                     {
-                        VideoUrl = downloadQuality.url
+                        VideoUrl = downloadQuality.url,
+                        YoutubeDlPath = Properties.Settings.Default.YoutubeDLLocation
                     };
                     youtubeDL.Options.PostProcessingOptions.FfmpegLocation = Properties.Settings.Default.MpegLocation;
 

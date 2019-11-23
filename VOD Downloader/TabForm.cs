@@ -37,12 +37,17 @@ namespace VOD_Downloader
             {
                 new UserNameForm().ShowDialog();
             }
-            if(!Properties.Settings.Default.isMpegLocation)
+            if(!Properties.Settings.Default.isMpegLocationSet)
             {
                 new MpegLocationForm().ShowDialog();
             }
 
-            if(Properties.Settings.Default.UserName.Any())
+            if (!Properties.Settings.Default.isYoutubeDLSet)
+            {
+                new YoutubeDLLocationForm().ShowDialog();
+            }
+
+            if (Properties.Settings.Default.UserName.Any())
             { 
                 loadMainPageItems();
                 PickSelectedStreamer();
