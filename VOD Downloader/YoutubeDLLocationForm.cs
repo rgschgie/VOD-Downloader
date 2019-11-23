@@ -12,32 +12,31 @@ using System.Windows.Forms;
 
 namespace VOD_Downloader
 {
-    public partial class MpegLocationForm : Form
+    public partial class YoutubeDLLocationForm : Form
     {
-
-        private string _fileName;
-
-        public MpegLocationForm()
+        public YoutubeDLLocationForm()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Button click event that opens the website to downloaf FFmpeg
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://ffmpeg.zeranoe.com/builds/");
-        }
+        private string _fileName;
 
         /// <summary>
-        /// Button click event that opens file dialog to pick FFmpeg.exe path
+        /// Button click event that opens the website to downloaf youtube-dl
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OpenFileButton_Click(object sender, EventArgs e)
+        private void DownloadLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://ytdl-org.github.io/youtube-dl/download.html");
+        }
+           
+        /// <summary>
+        /// Button click event that opens file dialog to pick youtube-dl.exe path
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenFileButton_Click_1(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -51,25 +50,23 @@ namespace VOD_Downloader
         }
 
         /// <summary>
-        /// Button click event that saves FFmpeg.exe path to Properties.Settings
+        /// Button click event that saves youtube-dl.exe path to Properties.Settings
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ApplyButton_Click(object sender, EventArgs e)
+        private void ApplyButton_Click_1(object sender, EventArgs e)
         {
-            if(_fileName != null)
+            if (_fileName != null)
             {
-                Properties.Settings.Default.MpegLocation = _fileName;
-                Properties.Settings.Default.isMpegLocationSet = true;
+                Properties.Settings.Default.YoutubeDLLocation = _fileName;
+                Properties.Settings.Default.isYoutubeDLSet = true;
                 Properties.Settings.Default.Save();
                 Close();
             }
             else
             {
-                MessageBox.Show("Please select the FFmpeg file.");
+                MessageBox.Show("Please select the youtube-dl.exe file.");
             }
-
         }
-
     }
 }

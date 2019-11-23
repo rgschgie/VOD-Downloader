@@ -158,6 +158,12 @@
     <Compile Include="Models\VideoQuality.cs" />
     <Compile Include="Obsolete\VODMasterObject_OBSOLETE.cs" />
     <Compile Include="Models\VODObject.cs" />
+    <Compile Include="YoutubeDLLocationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YoutubeDLLocationForm.Designer.cs">
+      <DependentUpon>YoutubeDLLocationForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MpegLocationForm.resx">
       <DependentUpon>MpegLocationForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserNameForm.resx">
       <DependentUpon>UserNameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YoutubeDLLocationForm.resx">
+      <DependentUpon>YoutubeDLLocationForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
